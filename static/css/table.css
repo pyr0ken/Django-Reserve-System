@@ -1,0 +1,207 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Vazirmatn";
+    text-align: center;
+}
+
+.persian-number {
+    font-family: "Vazirmatn FD";
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    /*border: 1px solid #000;*/
+    /*border-radius: 6px;*/
+    /*padding: 15px 65px 15px 65px !important;*/
+    /*padding: 10px !important;*/
+    /*background-color: r   gba(0, 0, 0, 0.2);*/
+
+}
+
+table tbody td.th-green {
+    padding: 0 !important;
+    margin: 0 !important;
+    background-color: rgb(17, 213, 143) !important;
+}
+
+
+table tbody td.th-red {
+    padding: 0 !important;
+    margin: 0 !important;
+    background-color: rgba(239, 68, 68, 1) !important;
+}
+
+table tbody td.th-orange {
+    padding: 0 !important;
+    margin: 0 !important;
+    background-color: #fd7919 !important;
+}
+
+body {
+    background: url(../image/football-background.jpg) center / cover
+}
+
+.table-div {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.table {
+    width: 80vw;
+    /* height: 90vh; */
+    /*background-color: #fff5;*/
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /*border-radius: .8rem;*/
+    border-radius: 15px;
+    /*backdrop-filter: blur(5px);*/
+    backdrop-filter: blur(10px);
+    box-shadow: 0 .4rem .8rem #0005;
+    overflow: hidden;
+    /*margin: 5rem 0 5rem 0;*/
+}
+
+.table__header {
+    width: 100%;
+    height: 10%;
+    background-color: #fff4;
+    padding: .8rem 1rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+.table__header a {
+    display: inline-block;
+    padding: 18px 26px;
+    text-decoration: none;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, .1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 100ms;
+}
+
+.table__header a:hover {
+    background-color: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 .4rem .8rem #0005;
+}
+
+.table__header a.url_resolver{
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 .4rem .8rem #fff5;
+}
+
+.table__header h1 {
+    font-size: 30px;
+    margin-top: 10px;
+    text-shadow: 0 .4rem .8rem #0005;
+}
+
+.table__body {
+    width: 95%;
+    max-height: calc(89% - 1.6rem);
+    background-color: #fffb;
+    margin: .8rem auto;
+    border-radius: .6rem;
+    overflow: auto;
+}
+
+.table__body::-webkit-scrollbar {
+    width: .5rem;
+    height: 1rem;
+}
+
+.table__body::-webkit-scrollbar-thumb {
+    background-color: #0004;
+    border-radius: .5rem;
+    visibility: hidden;
+}
+
+.table__body:hover::-webkit-scrollbar-thumb {
+    visibility: visible;
+}
+
+table,
+th,
+td {
+    border-collapse: collapse;
+    padding: 1rem;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+}
+
+thead th {
+    /*position: sticky;*/
+    top: 0;
+    left: 0;
+    background-color: #d5d1de;
+    text-align: center;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #0000000b;
+}
+
+tbody tr:hover {
+    background-color: #fff6;
+}
+
+.status {
+    /* width: 100px; */
+    padding: .4rem 0;
+    border-radius: 2rem;
+    text-align: center;
+}
+
+@media (max-width: 1000px) {
+    td {
+        min-width: 12.1rem;
+    }
+}
+
+table tbody td.th-green {
+    background-color: #34D399;
+    border: 1px solid #d5d1de;
+    color: #fff;
+    font-weight: bold;
+}
+
+table tbody td.th-red {
+    background-color: #EF4444;
+    border: 1px solid #d5d1de;
+    color: #fff;
+    font-weight: bold;
+}
+
+td {
+    width: 300px;
+}
+
+th {
+    width: 300px;
+}
+
+table tbody tr th {
+    font-size: 16px;
+}
+
+table thead tr th strong {
+    display: flex;
+    justify-content: center;
+}
+
+hr {
+    color: #fff4;
+    border-width: 2px;
+}
