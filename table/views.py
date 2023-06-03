@@ -21,8 +21,6 @@ def week_data(request: HttpRequest, week_number: int):
     reserve_days_header = ReserveDateTime.objects.filter(date__in=reserve_days_header_list).values_list('date',
                                                                                                         flat=True).distinct()
 
-    print(reserve_days_header)
-
     context = {
         'reserve_days': reserve_days,
         'reserve_days_header': reserve_days_header,

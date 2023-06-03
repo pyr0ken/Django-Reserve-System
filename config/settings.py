@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'table.apps.TableTimeConfig',
     'user_profile.apps.UserProfileConfig',
     'home.apps.HomeConfig',
+    'reservation.ReservationConfig',
 
     # Extra apps:
     'django_render_partial',

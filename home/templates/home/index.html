@@ -1,2 +1,24 @@
-<center><h1 dir="rtl" style="font-size: 6rem"> صفحه خانه :) </h1></center>
-<center><h3 dir="rtl"> آقا {{ me }} آقا </h3></center>
+{% extends 'base.html' %}
+
+
+{% block title %}
+    صفحه اصلی | سامانه رزرو آنلاین
+{% endblock %}
+
+
+{% block content %}
+    <style>
+        div {
+            text-align: center;
+            direction: rtl;
+        }
+
+        h1 {
+            font-size: 6rem;
+        }
+    </style>
+    <div>
+        <h1> صفحه خانه :) </h1>
+        <h3> آقا {{ me|truncatechars:17 }} آقا </h3>
+    </div>
+{% endblock %}

@@ -18,6 +18,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+import debug_toolbar
 
 admin.site.site_header = 'ادمین  سامانه رزرو آنلاین'
 admin.site.site_title = 'ورود ادمین'
@@ -27,5 +28,6 @@ urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('', include('home.urls', namespace='home')),
                   path('table/', include('table.urls', namespace='table')),
+		  path('reservetion/'include('reservation.urls', namespace='reservation')),
                   path('__debug__/', include('debug_toolbar.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
