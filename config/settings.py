@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     # Local apps:
     'field_lookup.apps.FieldLookupConfig',
     'accounts.apps.AccountsConfig',
-    'table_time.apps.TableTimeConfig',
+    'table.apps.TableConfig',
     'user_profile.apps.UserProfileConfig',
     'home.apps.HomeConfig',
     'reservation_order.apps.ReservationOrderConfig',
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_render_partial',
     'jalali_date',
     'debug_toolbar',
+    'widget_tweaks',
 
 ]
 

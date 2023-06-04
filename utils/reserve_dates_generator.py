@@ -1,6 +1,6 @@
 from django.utils import timezone
 from datetime import timedelta
-from table_time.models import ReserveDateTime
+from table.models import ReserveDateTime
 from django.conf import settings
 
 

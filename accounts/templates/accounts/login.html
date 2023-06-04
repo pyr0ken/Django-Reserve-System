@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+    ورود | سامانه رزرو سالن
+{% endblock %}
+
+{% block headers_refrences %}
+    <link rel="stylesheet" href="{% static 'css/register-login.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section>
+        <img src="{% static 'image/stadium.jpg' %}" alt="" class="bg">
+        <div class="login">
+            <h2>ورود</h2>
+            <div class="inputBox">
+                <input type="email" placeholder="ایمیل خود را وارد کنید.">
+            </div>
+            <div class="inputBox">
+                <input type="password" placeholder="پسورد خود را وارد کنید.">
+            </div>
+            <div class="inputBox">
+                <input type="submit" value="ورود" id="btn">
+            </div>
+            <div class="group">
+                <a href="#">حساب کابری ندارید؟‌ <strong>ثبت نام کنید</strong></a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

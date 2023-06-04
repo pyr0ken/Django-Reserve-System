@@ -27,7 +27,7 @@ admin.site.index_title = 'خوش آمدید به صفحه ادمین !'
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('', include('home.urls', namespace='home')),
-                  path('table-time/', include('table_time.urls', namespace='table_time')),
-                  path('reservetion/', include('reservation_order.urls', namespace='reservation')),
+                  path('table/', include('table.urls', namespace='table')),
+                  path('order/', include('order.urls', namespace='order')),
                   path('__debug__/', include('debug_toolbar.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
