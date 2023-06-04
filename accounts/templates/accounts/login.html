@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block headers_refrences %}
-    <link rel="stylesheet" href="{% static 'css/register-login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -25,7 +25,7 @@
                 <input type="submit" value="ورود" id="btn">
             </div>
             <div class="group">
-                <a href="#">حساب کابری ندارید؟‌ <strong>ثبت نام کنید</strong></a>
+                <a href="{% url 'accounts:register_page' %}">حساب کابری ندارید؟‌ <strong>ثبت نام کنید!</strong></a>
             </div>
         </div>
     </section>

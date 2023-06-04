@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'table.apps.TableConfig',
     'user_profile.apps.UserProfileConfig',
     'home.apps.HomeConfig',
-    'reservation_order.apps.ReservationOrderConfig',
+    'order.apps.OrderConfig',
 
     # Extra apps:
     'django_render_partial',

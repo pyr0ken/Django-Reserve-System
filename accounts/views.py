@@ -16,7 +16,7 @@ class RegisterView(View):
             'register_form': register_form
         }
 
-        return render(request, 'account_module/register.html', context)
+        return render(request, 'accounts/register.html', context)
 
     def post(self, request):
         register_form = RegisterForm(request.POST)
@@ -41,7 +41,7 @@ class RegisterView(View):
             'register_form': register_form
         }
 
-        return render(request, 'account_module/register.html', context)
+        return render(request, 'accounts/register.html', context)
 
 
 class ActivateAccountView(View):
@@ -68,7 +68,7 @@ class LoginView(View):
             'login_form': login_form
         }
 
-        return render(request, 'account_module/login.html', context)
+        return render(request, 'accounts/login.html', context)
 
     def post(self, request: HttpRequest):
         login_form = LoginForm(request.POST)
@@ -93,14 +93,14 @@ class LoginView(View):
             'login_form': login_form
         }
 
-        return render(request, 'account_module/login.html', context)
+        return render(request, 'accounts/login.html', context)
 
 
 class ForgetPasswordView(View):
     def get(self, request: HttpRequest):
         forget_pass_form = ForgotPasswordForm()
         context = {'forget_pass_form': forget_pass_form}
-        return render(request, 'account_module/forgot_password.html', context)
+        return render(request, 'accounts/forgot_password.html', context)
 
     def post(self, request: HttpRequest):
         forget_pass_form = ForgotPasswordForm(request.POST)
@@ -112,7 +112,7 @@ class ForgetPasswordView(View):
                 return redirect(reverse('home_page'))
 
         context = {'forget_pass_form': forget_pass_form}
-        return render(request, 'account_module/forgot_password.html', context)
+        return render(request, 'accounts/forgot_password.html', context)
 
 
 class ResetPasswordView(View):
@@ -127,7 +127,7 @@ class ResetPasswordView(View):
             'reset_pass_form': reset_pass_form,
             'user': user
         }
-        return render(request, 'account_module/reset_password.html', context)
+        return render(request, 'accounts/reset_password.html', context)
 
     def post(self, request: HttpRequest, active_code):
         reset_pass_form = ResetPasswordForm(request.POST)
@@ -147,7 +147,7 @@ class ResetPasswordView(View):
             'user': user
         }
 
-        return render(request, 'account_module/reset_password.html', context)
+        return render(request, 'accounts/reset_password.html', context)
 
 
 class LogoutView(View):

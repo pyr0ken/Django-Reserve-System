@@ -29,13 +29,14 @@ section .bg {
     position: relative;
     padding: 60px;
     background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
     border-radius: 20px;
     width: 500px;
     display: flex;
     flex-direction: column;
     gap: 30px;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+    transition: 0.5s;
 }
 
 .login h2 {
@@ -63,7 +64,7 @@ section .bg {
     border-radius: 5px;
     background: #fff;
     border: none;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 .login .inputBox ::placeholder {
@@ -89,7 +90,7 @@ section .bg {
 
 .login .group {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .login .group a {
@@ -102,9 +103,19 @@ section .bg {
 
 .login .group a:hover {
     text-decoration: underline;
-
 }
 
+@media screen and (max-width: 500px) {
+    .login {
+        transition: 0.5s;
+        padding: 30px;
+        width: 400px;
+    }
+
+    .login h2 {
+        font-size: 3.5rem;
+    }
+}
 
 
 

@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block headers_refrences %}
-    <link rel="stylesheet" href="{% static 'css/register-login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -15,6 +15,7 @@
         <img src="{% static 'image/stadium.jpg' %}" alt="" class="bg">
         <div class="login">
             <h2>ثبت نام</h2>
+{#            {% render_field  %}#}
             <div class="inputBox">
                 <input type="email" placeholder="ایمیل خود را وارد کنید.">
             </div>
@@ -28,8 +29,10 @@
                 <input type="submit" value="ثبت نام" id="btn">
             </div>
             <div class="group">
-                <a href="#">قبلا ثبت نام کرده اید؟ <strong>وارد شوید</strong></a>
-                <a href="#">فراموش رمز عبور</a>
+                <div>
+                <a href="{% url 'accounts:login_page' %}"> <strong>وارد شوید</strong></a>
+                </div>
+                <a href="#">فراموشی رمز عبور</a>
             </div>
         </div>
     </section>

@@ -25,9 +25,13 @@ admin.site.site_title = 'ورود ادمین'
 admin.site.index_title = 'خوش آمدید به صفحه ادمین !'
 
 urlpatterns = [
-                  path('admin/', admin.site.urls),
-                  path('', include('home.urls', namespace='home')),
-                  path('table/', include('table.urls', namespace='table')),
-                  path('order/', include('order.urls', namespace='order')),
-                  path('__debug__/', include('debug_toolbar.urls')),
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('admin/', admin.site.urls),
+    path('', include('home.urls', namespace='home')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
+    path('table/', include('table.urls', namespace='table')),
+    path('order/', include('order.urls', namespace='order')),
+    path('__debug__/', include('debug_toolbar.urls')),
+]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
