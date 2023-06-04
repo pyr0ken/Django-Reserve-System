@@ -1,8 +1,7 @@
 from django.db import models
 from django.conf import settings
-from utils.get_current_time import get_current_time
 from table.models import ReserveDateTime
-
+from django.core.validators import MinValueValidator
 
 class Order(models.Model):
     user = models.ForeignKey(
@@ -26,6 +25,7 @@ class Order(models.Model):
     reserve_count = models.PositiveSmallIntegerField(
         verbose_name='تعداد رزرو',
         default=1,
+        validators=[MinValueValidator(1)],
     )
 
     def __str__(self):

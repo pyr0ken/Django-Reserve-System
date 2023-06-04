@@ -1,4 +1,4 @@
-from django.utils import timezone
+from utils.get_current_time import get_current_time
 from datetime import timedelta
 from table.models import ReserveDateTime
 from django.conf import settings
@@ -10,7 +10,7 @@ def daterange(start_date, end_date):
 
 
 def create_booking_dates():
-    current_date = timezone.now().astimezone(settings.IRAN_TIME_ZONE).date()
+    current_date = get_current_time().date()
     end_date = current_date + timedelta(days=27)
 
     reservations = []

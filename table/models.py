@@ -1,6 +1,5 @@
 from datetime import time, datetime
 from django.db import models
-from django.utils import timezone
 from jalali_date import date2jalali
 from utils.get_current_time import get_current_time
 
@@ -28,7 +27,7 @@ class ReserveDateTime(models.Model):
 
     date = models.DateField(
         verbose_name="تاریخ",
-        default=get_current_time,
+        default=get_current_time(),
         db_index=True
     )
     time = models.TimeField(

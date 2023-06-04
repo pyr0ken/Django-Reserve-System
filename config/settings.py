@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'field_lookup.apps.FieldLookupConfig',
     'accounts.apps.AccountsConfig',
     'table.apps.TableConfig',
-    'user_profile.apps.UserProfileConfig',
+    'accounts_profile.apps.AccountsProfileConfig',
     'home.apps.HomeConfig',
     'order.apps.OrderConfig',
 
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'jalali_date',
     'debug_toolbar',
     'widget_tweaks',
+    'django_celery_beat',
 
 ]
 
@@ -123,10 +124,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'fa-IR'
 
-# This is not working
+# todo: This is not working
 TIME_ZONE = 'Asia/Tehran'
-
-IRAN_TIME_ZONE = pytz.timezone('Asia/Tehran')
 
 USE_I18N = True
 

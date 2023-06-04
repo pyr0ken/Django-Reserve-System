@@ -1,13 +1,12 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
 from django.http import HttpRequest
-from django.utils import timezone
 from django.shortcuts import render
-from django.conf import settings
+from utils.get_current_time import get_current_time
 from .models import ReserveDateTime
 
 
 def week_data(request: HttpRequest, week_number: int):
-    start_time = timezone.now().astimezone(settings.IRAN_TIME_ZONE).date() + timedelta(days=7 * (week_number - 1))
+    start_time = get_current_time().date() + timedelta(days=7 * (week_number - 1))
     end_time = start_time + timedelta(days=6)
 
     # Get the
