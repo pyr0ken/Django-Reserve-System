@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+import pytz
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,12 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Local apps:
-    'polls.apps.PollsConfig',
+    'field_lookup.apps.FieldLookupConfig',
     'accounts.apps.AccountsConfig',
-    'table.apps.TableTimeConfig',
+    'table_time.apps.TableTimeConfig',
     'user_profile.apps.UserProfileConfig',
     'home.apps.HomeConfig',
-    'reservation.ReservationConfig',
+    'reservation_order.apps.ReservationOrderConfig',
 
     # Extra apps:
     'django_render_partial',
@@ -120,7 +122,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'fa-IR'
 
+# This is not working
 TIME_ZONE = 'Asia/Tehran'
+
+IRAN_TIME_ZONE = pytz.timezone('Asia/Tehran')
 
 USE_I18N = True
 
