@@ -38,11 +38,16 @@
                     <tr>
                         <th><strong>روز / زمان</strong></th>
                         {% for reserve_day_header in reserve_days_header %}
-                            <th><strong>
-                            {{ reserve_day_header|get_weekday }}
-                        </strong>
-                            <hr>
-                            {{ reserve_day_header|to_jalali }}
+                            <th>
+                                <div class="day">
+                                    <strong>
+                                        {{ reserve_day_header|get_weekday }}
+                                    </strong>
+                                    <p>
+                                        {{ reserve_day_header|to_jalali }}
+                                    </p>
+                                </div>
+                            </th>
                         {% endfor %}
                     </tr>
                     </thead>
@@ -52,19 +57,21 @@
                         {% for day in reserve_days %}
                             {% if day.time|time:"H:i" == "01:30" %}
                                 <td class="{% if day.status == 'AVA' %}th-green{% elif day.status  == 'BOK' %}th-red{% else %}th-orange{% endif %}">
-                                    <a href="#" class="status">
+                                    <p href="#" class="status">
                                         {% if day.status == 'AVA' %}
-                                            <span>{{ day.price|three_digits_currency }}</span>
-                                            <br>
-                                            رزرو
-                                            کنید!
+                                            <a href="#">
+                                                <span>{{ day.price|three_digits_currency }}</span>
+                                                <br>
+                                                رزرو
+                                                کنید!
+                                            </a>
                                         {% elif day.status  == 'BOK' %}
                                             رزرو شده
                                         {% else %}
                                             زمان رزرو گذشته
                                             است.
                                         {% endif %}
-                                    </a>
+                                    </p>
                                 </td>
                             {% endif %}
                         {% endfor %}

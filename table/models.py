@@ -60,6 +60,9 @@ class ReserveDateTime(models.Model):
     def __str__(self):
         return f'weekday: {self.get_weekday()} | date: {date2jalali(self.date).strftime("%Y/%m/%d")} | time: {self.time}'
 
+    # def get_absolute_url(self):
+    #     pass
+
     def get_weekday(self):
         days_of_week = ['دوشنبه', 'سه شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه', 'شنبه', 'یکشنبه']
         date = datetime.strptime(str(self.date), '%Y-%m-%d')

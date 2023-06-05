@@ -3,5 +3,5 @@ from . import views
 
 app_name = 'order'
 urlpatterns = [
-    # path('reservation/', views.reservation.as_view(), name='reserve')
+    path('submit-order/', views.OrderView.as_view(), name='order_page')
 ]

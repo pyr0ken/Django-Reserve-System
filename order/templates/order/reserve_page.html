@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+    رزرو سانس | سامانه رزرو سالن
+{% endblock %}
+
+{% block headers_refrences %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section>
+        <img src="{% static 'image/stadium.jpg' %}" alt="" class="bg">
+        <div class="login">
+            <h2>رزرو سالن</h2>
+            <div class="inputBox">
+                <input type="text" placeholder="شماره تلفن جهت هماهنگی :">
+            </div>
+            <div class="inputBox">
+                <input type="number" min="1" max="10" placeholder="تعداد جلسات مورد نظر :">
+            </div>
+            <div class="inputBox">
+                <input type="submit" value="پرداخت" id="btn">
+            </div>
+        </div>
+    </section>
+{% endblock %}

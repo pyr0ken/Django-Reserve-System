@@ -8,7 +8,7 @@ def check_and_unavailable_date():
     current_time = get_current_time()
     reserve_dates_to_unavailable = ReserveDateTime.objects.filter(
         date__exact=current_time.date(),
-        time__lt=current_time.time(),
+        time__lte=current_time.time(),
         status__exact='AVA')
     if reserve_dates_to_unavailable:
         for reserve_date in reserve_dates_to_unavailable:
