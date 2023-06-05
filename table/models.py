@@ -27,7 +27,7 @@ class ReserveDateTime(models.Model):
 
     date = models.DateField(
         verbose_name="تاریخ",
-        default=get_current_time(),
+        default=get_current_time,
         db_index=True
     )
     time = models.TimeField(
@@ -45,7 +45,7 @@ class ReserveDateTime(models.Model):
     price = models.DecimalField(
         verbose_name="هزینه",
         max_digits=10,
-        decimal_places=3,
+        decimal_places=0,
         null=True,
         blank=True,
         help_text="لطفا هزینه رزرو را به <strong>تومان</strong> وارد کنید."

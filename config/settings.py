@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
-import pytz
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Local apps:
+    # Local apps
     'field_lookup.apps.FieldLookupConfig',
     'accounts.apps.AccountsConfig',
     'table.apps.TableConfig',
@@ -46,13 +44,11 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'order.apps.OrderConfig',
 
-    # Extra apps:
+    # Third-party apps
     'django_render_partial',
     'jalali_date',
     'debug_toolbar',
     'widget_tweaks',
-    'django_celery_beat',
-
 ]
 
 MIDDLEWARE = [
@@ -84,6 +80,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'config.wsgi.application'
 

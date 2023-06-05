@@ -2,12 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Vazirmatn";
+    font-family: Vazirmatn;
     text-align: center;
-}
-
-.persian-number {
-    font-family: "Vazirmatn FD";
 }
 
 a {
@@ -63,7 +59,8 @@ body {
     backdrop-filter: blur(10px);
     box-shadow: 0 .4rem .8rem #0005;
     overflow: hidden;
-    /*margin: 5rem 0 5rem 0;*/
+    margin: 2rem 0 3rem 0;
+    transition: 0.5s;
 }
 
 .table__header {
@@ -94,7 +91,7 @@ body {
     box-shadow: 0 .4rem .8rem #0005;
 }
 
-.table__header a.url_resolver{
+.table__header a.url_resolver {
     background-color: rgba(0, 0, 0, 0.3);
     box-shadow: 0 .4rem .8rem #fff5;
 }
@@ -103,6 +100,7 @@ body {
     font-size: 30px;
     margin-top: 10px;
     text-shadow: 0 .4rem .8rem #0005;
+    transition: 0.5s;
 }
 
 .table__body {
@@ -166,7 +164,29 @@ tbody tr:hover {
 
 @media (max-width: 1000px) {
     td {
-        min-width: 12.1rem;
+        min-width: 10rem;
+    }
+}
+
+@media screen and (max-width: 700px) and (min-width: 300px) {
+    .table{
+        width: 92vw;
+        transition: 0.5s;
+        margin-top: 10px;
+    }
+    .table__header a {
+        display: block;
+        margin: 5px;
+        padding: 5px;
+        height: 82px;
+        transition: 0.5s;
+    }
+
+    .table__header h1 {
+        margin-top: 5px;
+        padding: 0 13px;
+        font-size: 25px;
+        transition: 0.5s;
     }
 }
 
@@ -177,12 +197,30 @@ table tbody td.th-green {
     font-weight: bold;
 }
 
+table tbody td.th-green a {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 table tbody td.th-red {
     background-color: #EF4444;
     border: 1px solid #d5d1de;
     color: #fff;
     font-weight: bold;
 }
+
+table tbody td.th-orange {
+    background-color: #fd7919 !important;
+    border: 1px solid #d5d1de;
+    color: #fff;
+    /*font-weight: bold;*/
+}
+
+table tbody td.th-orange a {
+    cursor: default;
+}
+
 
 td {
     width: 300px;
@@ -204,4 +242,12 @@ table thead tr th strong {
 hr {
     color: #fff4;
     border-width: 2px;
+}
+
+table tbody td a span {
+    color: #000;
+}
+
+table tbody td a{
+    font-size: 16px !important;
 }

@@ -1,11 +1,14 @@
 from datetime import datetime, timedelta
-from django.http import HttpRequest
+from django.http import HttpRequest, Http404
 from django.shortcuts import render
 from utils.get_current_time import get_current_time
 from .models import ReserveDateTime
 
 
 def week_data(request: HttpRequest, week_number: int):
+    if week_number > 4 or week_number == 0:
+        raise Http404
+
     start_time = get_current_time().date() + timedelta(days=7 * (week_number - 1))
     end_time = start_time + timedelta(days=6)
 
@@ -14,6 +17,7 @@ def week_data(request: HttpRequest, week_number: int):
 
     # Get days from a week number.
     reserve_days = ReserveDateTime.objects.filter(date__range=(start_time, end_time))
+
 
     """ Get days data for table header :
             - filter date for get this week number. 

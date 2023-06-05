@@ -3,6 +3,7 @@ from django.conf import settings
 from table.models import ReserveDateTime
 from django.core.validators import MinValueValidator
 
+
 class Order(models.Model):
     user = models.ForeignKey(
         verbose_name='کاربر',
