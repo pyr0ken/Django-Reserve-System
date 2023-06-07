@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ReserveDateTime
+from .models import ReserveDateTime, PriceSetting
 from django.db import models
 from jalali_date import date2jalali
 from jalali_date.fields import JalaliDateField
@@ -27,4 +27,10 @@ class ReserveDateTimeAdmin(admin.ModelAdmin):
     jdate.short_description = "تاریخ رزرو"
 
 
+class PriceSettingAdmin(admin.ModelAdmin):
+    list_display = ['id', 'price', 'weekdays', 'times']
+    list_filter = ['weekdays', 'times', 'price']
+
+
 admin.site.register(ReserveDateTime, ReserveDateTimeAdmin)
+admin.site.register(PriceSetting, PriceSettingAdmin)

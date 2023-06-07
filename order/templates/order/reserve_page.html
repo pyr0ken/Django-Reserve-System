@@ -1,29 +1,48 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load widget_tweaks %}
+{% load jalali_tags %}
+{% load custom_field_lookups %}
 
 {% block title %}
     رزرو سانس | سامانه رزرو سالن
 {% endblock %}
 
 {% block headers_refrences %}
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reserve_page.css' %}">
 {% endblock %}
 
 {% block content %}
     <section>
-        <img src="{% static 'image/stadium.jpg' %}" alt="" class="bg">
+        <img src="{% static 'image/5.jpg' %}" alt="" class="bg">
         <div class="login">
             <h2>رزرو سالن</h2>
+            <div class="info-box">
+                <div class="text-box">
+                    <span>تاریخ سانس:</span>
+                    <span class="">{{ reserve_date.date|to_jalali }} - {{ reserve_date.date|get_weekday }}</span>
+                </div>
+                <div class="text-box">
+                    <span>زمان سانس:</span>
+                    <span class="">{{ reserve_date.time }}</span>
+                </div>
+                <div class="text-box">
+                    <span>قیمت سانس:</span>
+                    <span class="">{{ reserve_date.price|three_digits_currency }}</span>
+                </div>
+            </div>
             <div class="inputBox">
-                <input type="text" placeholder="شماره تلفن جهت هماهنگی :">
+                <input type="text" placeholder="شماره تلفن (جهت هماهنگی) :">
             </div>
             <div class="inputBox">
                 <input type="number" min="1" max="10" placeholder="تعداد جلسات مورد نظر :">
             </div>
+            <div class="text-box">
+                <span>قیمت نهایی:</span>
+                <span class="">{{ reserve_date.price|three_digits_currency }}</span>
+            </div>
             <div class="inputBox">
                 <input type="submit" value="پرداخت" id="btn">
             </div>
-        </div>
     </section>
 {% endblock %}

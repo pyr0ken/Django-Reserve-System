@@ -3,5 +3,6 @@ from . import views
 
 app_name = 'order'
 urlpatterns = [
-    path('submit-order/', views.OrderView.as_view(), name='order_page')
+    path('<int:year>/<int:month>/<int:day>/<int:hour>/<int:minute>', views.OrderDetail.as_view(),
+         name='order_page')
 ]

@@ -37,7 +37,7 @@ table tbody td.th-orange {
 }
 
 body {
-    background: url(../image/football-background.jpg) center / cover
+    background: url(../image/8.jpg) center / cover
 }
 
 .table-div {
@@ -77,23 +77,25 @@ body {
     padding: 18px 26px;
     text-decoration: none;
     border-radius: 6px;
-    background-color: rgba(255, 255, 255, .1);
+    /*background-color: rgba(255, 255, 255, 0.1);*/
+    background-color: #FFFFFF19;
     border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(30px);
-    color: rgba(255, 255, 255, 0.8);
+    color: #000;
     font-size: 20px;
     cursor: pointer;
-    transition: all 100ms;
+    transition: 300ms;
 }
 
 .table__header a:hover {
-    background-color: rgba(255, 255, 255, 0.35);
+    background-color: #FFFFFF19;
     box-shadow: 0 .4rem .8rem #0005;
 }
 
 .table__header a.url_resolver {
-    background-color: rgba(0, 0, 0, 0.3);
-    box-shadow: 0 .4rem .8rem #fff5;
+    background-color: #00000000;
+    box-shadow: 0 0 3rem #fff5;
+    color: #fff;
 }
 
 .table__header h1 {
@@ -253,27 +255,3 @@ table tbody td a span {
 table tbody td a {
     font-size: 16px !important;
 }
-
-/*@media screen and (-webkit-min-device-pixel-ratio: 0) {*/
-/*    .table__header a {*/
-/*        border-radius: 6px;*/
-/*        background-color: rgba(255, 255, 255, .1);*/
-/*        border: 1px solid rgba(255, 255, 255, 0.1);*/
-/*        backdrop-filter: blur(30px);*/
-/*        color: rgba(255, 255, 255, 0.8);*/
-/*        font-size: 20px;*/
-/*        cursor: pointer;*/
-/*        transition: all 100ms;*/
-/*    }*/
-
-/*    .table__header a:hover {*/
-/*        background-color: rgba(255, 255, 255, 0.35);*/
-/*        box-shadow: 0 .4rem .8rem #0005;*/
-/*    }*/
-
-/*    .table__header a.url_resolver {*/
-/*        background-color: rgba(0, 0, 0, 0.3);*/
-/*        box-shadow: 0 .4rem .8rem #fff5;*/
-/*    }*/
-
-/*}*/

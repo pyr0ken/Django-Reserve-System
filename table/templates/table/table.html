@@ -52,294 +52,32 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th class="persian-number">01:30</th>
-                        {% for day in reserve_days %}
-                            {% if day.time|time:"H:i" == "01:30" %}
-                                <td class="{% if day.status == 'AVA' %}th-green{% elif day.status  == 'BOK' %}th-red{% else %}th-orange{% endif %}">
-                                    <p href="#" class="status">
-                                        {% if day.status == 'AVA' %}
-                                            <a href="#">
-                                                <span>{{ day.price|three_digits_currency }}</span>
-                                                <br>
-                                                رزرو
-                                                کنید!
-                                            </a>
-                                        {% elif day.status  == 'BOK' %}
-                                            رزرو شده
-                                        {% else %}
-                                            زمان رزرو گذشته
-                                            است.
-                                        {% endif %}
-                                    </p>
-                                </td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
-                    <tr>
-                        <th class="persian-number">07:30</th>
-                        {% for day in reserve_days %}
-                            {% if day.time|time:"H:i" == "07:30" %}
-                                <td class="{% if day.status == 'AVA' %}th-green{% elif day.status  == 'BOK' %}th-red{% else %}th-orange{% endif %}">
-                                    <a href="#" class="status">
-                                        {% if day.status == 'AVA' %}
-                                            <span>{{ day.price|three_digits_currency }}</span>
-                                            <br>
-                                            رزرو
-                                            کنید!
-                                        {% elif day.status  == 'BOK' %}
-                                            رزرو شده
-                                        {% else %}
-                                            زمان رزرو گذشته
-                                            است.
-                                        {% endif %}
-                                    </a>
-                                </td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
-                    <tr>
-                        <th class="persian-number">09:00</th>
-                        {% for day in reserve_days %}
-                            {% if day.time|time:"H:i" == "09:00" %}
-                                <td class="{% if day.status == 'AVA' %}th-green{% elif day.status  == 'BOK' %}th-red{% else %}th-orange{% endif %}">
-                                    <a href="#" class="status">
-                                        {% if day.status == 'AVA' %}
-                                            <span>{{ day.price|three_digits_currency }}</span>
-                                            <br>
-                                            رزرو
-                                            کنید!
-                                        {% elif day.status  == 'BOK' %}
-                                            رزرو شده
-                                        {% else %}
-                                            زمان رزرو گذشته
-                                            است.
-                                        {% endif %}
-                                    </a>
-                                </td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
-                    <tr>
-                        <th class="persian-number">10:30</th>
-                        {% for day in reserve_days %}
-                            {% if day.time|time:"H:i" == "10:30" %}
-                                <td class="{% if day.status == 'AVA' %}th-green{% elif day.status  == 'BOK' %}th-red{% else %}th-orange{% endif %}">
-                                    <a href="#" class="status">
-                                        {% if day.status == 'AVA' %}
-                                            <span>{{ day.price|three_digits_currency }}</span>
-                                            <br>
-                                            رزرو
-                                            کنید!
-                                        {% elif day.status  == 'BOK' %}
-                                            رزرو شده
-                                        {% else %}
-                                            زمان رزرو گذشته
-                                            است.
-                                        {% endif %}
-                                    </a>
-                                </td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
-                    <tr>
-                        <th class="persian-number">12:00</th>
-                        {% for day in reserve_days %}
-                            {% if day.time|time:"H:i" == "12:00" %}
-                                <td class="{% if day.status == 'AVA' %}th-green{% elif day.status  == 'BOK' %}th-red{% else %}th-orange{% endif %}">
-                                    <a href="#" class="status">
-                                        {% if day.status == 'AVA' %}
-                                            <span>{{ day.price|three_digits_currency }}</span>
-                                            <br>
-                                            رزرو
-                                            کنید!
-                                        {% elif day.status  == 'BOK' %}
-                                            رزرو شده
-                                        {% else %}
-                                            زمان رزرو گذشته
-                                            است.
-                                        {% endif %}
-                                    </a>
-                                </td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
-                    <tr>
-                        <th class="persian-number">13:30</th>
-                        {% for day in reserve_days %}
-                            {% if day.time|time:"H:i" == "13:30" %}
-                                <td class="{% if day.status == 'AVA' %}th-green{% elif day.status  == 'BOK' %}th-red{% else %}th-orange{% endif %}">
-                                    <a href="#" class="status">
-                                        {% if day.status == 'AVA' %}
-                                            <span>{{ day.price|three_digits_currency }}</span>
-                                            <br>
-                                            رزرو
-                                            کنید!
-                                        {% elif day.status  == 'BOK' %}
-                                            رزرو شده
-                                        {% else %}
-                                            زمان رزرو گذشته
-                                            است.
-                                        {% endif %}
-                                    </a>
-                                </td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
-                    <tr>
-                        <th class="persian-number">15:00</th>
-                        {% for day in reserve_days %}
-                            {% if day.time|time:"H:i" == "15:00" %}
-                                <td class="{% if day.status == 'AVA' %}th-green{% elif day.status  == 'BOK' %}th-red{% else %}th-orange{% endif %}">
-                                    <a href="#" class="status">
-                                        {% if day.status == 'AVA' %}
-                                            <span>{{ day.price|three_digits_currency }}</span>
-                                            <br>
-                                            رزرو
-                                            کنید!
-                                        {% elif day.status  == 'BOK' %}
-                                            رزرو شده
-                                        {% else %}
-                                            زمان رزرو گذشته
-                                            است.
-                                        {% endif %}
-                                    </a>
-                                </td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
-                    <tr>
-                        <th class="persian-number">16:30</th>
-                        {% for day in reserve_days %}
-                            {% if day.time|time:"H:i" == "16:30" %}
-                                <td class="{% if day.status == 'AVA' %}th-green{% elif day.status  == 'BOK' %}th-red{% else %}th-orange{% endif %}">
-                                    <a href="#" class="status">
-                                        {% if day.status == 'AVA' %}
-                                            <span>{{ day.price|three_digits_currency }}</span>
-                                            <br>
-                                            رزرو
-                                            کنید!
-                                        {% elif day.status  == 'BOK' %}
-                                            رزرو شده
-                                        {% else %}
-                                            زمان رزرو گذشته
-                                            است.
-                                        {% endif %}
-                                    </a>
-                                </td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
-                    <tr>
-                        <th class="persian-number">18:00</th>
-                        {% for day in reserve_days %}
-                            {% if day.time|time:"H:i" == "18:00" %}
-                                <td class="{% if day.status == 'AVA' %}th-green{% elif day.status  == 'BOK' %}th-red{% else %}th-orange{% endif %}">
-                                    <a href="#" class="status">
-                                        {% if day.status == 'AVA' %}
-                                            <span>{{ day.price|three_digits_currency }}</span>
-                                            <br>
-                                            رزرو
-                                            کنید!
-                                        {% elif day.status  == 'BOK' %}
-                                            رزرو شده
-                                        {% else %}
-                                            زمان رزرو گذشته
-                                            است.
-                                        {% endif %}
-                                    </a>
-                                </td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
-                    <tr>
-                        <th class="persian-number">19:30</th>
-                        {% for day in reserve_days %}
-                            {% if day.time|time:"H:i" == "19:30" %}
-                                <td class="{% if day.status == 'AVA' %}th-green{% elif day.status  == 'BOK' %}th-red{% else %}th-orange{% endif %}">
-                                    <a href="#" class="status">
-                                        {% if day.status == 'AVA' %}
-                                            <span>{{ day.price|three_digits_currency }}</span>
-                                            <br>
-                                            رزرو
-                                            کنید!
-                                        {% elif day.status  == 'BOK' %}
-                                            رزرو شده
-                                        {% else %}
-                                            زمان رزرو گذشته
-                                            است.
-                                        {% endif %}
-                                    </a>
-                                </td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
-                    <tr>
-                        <th class="persian-number">21:00</th>
-                        {% for day in reserve_days %}
-                            {% if day.time|time:"H:i" == "21:00" %}
-                                <td class="{% if day.status == 'AVA' %}th-green{% elif day.status  == 'BOK' %}th-red{% else %}th-orange{% endif %}">
-                                    <a href="#" class="status">
-                                        {% if day.status == 'AVA' %}
-                                            <span>{{ day.price|three_digits_currency }}</span>
-                                            <br>
-                                            رزرو
-                                            کنید!
-                                        {% elif day.status  == 'BOK' %}
-                                            رزرو شده
-                                        {% else %}
-                                            زمان رزرو گذشته
-                                            است.
-                                        {% endif %}
-                                    </a>
-                                </td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
-                    <tr>
-                        <th class="persian-number">22:30</th>
-                        {% for day in reserve_days %}
-                            {% if day.time|time:"H:i" == "22:30" %}
-                                <td class="{% if day.status == 'AVA' %}th-green{% elif day.status  == 'BOK' %}th-red{% else %}th-orange{% endif %}">
-                                    <a href="#" class="status">
-                                        {% if day.status == 'AVA' %}
-                                            <span>{{ day.price|three_digits_currency }}</span>
-                                            <br>
-                                            رزرو
-                                            کنید!
-                                        {% elif day.status  == 'BOK' %}
-                                            رزرو شده
-                                        {% else %}
-                                            زمان رزرو گذشته
-                                            است.
-                                        {% endif %}
-                                    </a>
-                                </td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
-                    <tr>
-                        <th class="persian-number">23:59</th>
-                        {% for day in reserve_days %}
-                            {% if day.time|time:"H:i" == "23:59" %}
-                                <td class="{% if day.status == 'AVA' %}th-green{% elif day.status  == 'BOK' %}th-red{% else %}th-orange{% endif %}">
-                                    <a href="#" class="status">
-                                        {% if day.status == 'AVA' %}
-                                            <span>{{ day.price|three_digits_currency }}</span>
-                                            <br>
-                                            رزرو
-                                            کنید!
-                                        {% elif day.status  == 'BOK' %}
-                                            رزرو شده
-                                        {% else %}
-                                            زمان رزرو گذشته
-                                            است.
-                                        {% endif %}
-                                    </a>
-                                </td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
+                    {% for reserve_time in reserve_times %}
+                        <tr>
+                            <th>{{ reserve_time|time:"H:i" }}</th>
+                            {% for day in reserve_days %}
+                                {% if day.time == reserve_time %}
+                                    <td class="{% if day.status == 'AVA' %}th-green{% elif day.status  == 'BOK' %}th-red{% else %}th-orange{% endif %}">
+                                        <p class="status">
+                                            {% if day.status == 'AVA' %}
+                                                <a href="{{ day.get_absolute_url }}">
+                                                    <span>{{ day.price|three_digits_currency }}</span>
+                                                    <br>
+                                                    رزرو
+                                                    کنید!
+                                                </a>
+                                            {% elif day.status  == 'BOK' %}
+                                                رزرو شده.
+                                            {% else %}
+                                                زمان رزرو گذشته
+                                                است.
+                                            {% endif %}
+                                        </p>
+                                    </td>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </section>

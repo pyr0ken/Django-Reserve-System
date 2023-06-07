@@ -29,7 +29,7 @@ section .bg {
     position: relative;
     padding: 60px;
     background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(15px);
     border-radius: 20px;
     width: 500px;
     display: flex;
@@ -105,6 +105,24 @@ section .bg {
     text-decoration: underline;
 }
 
+.info-box{
+    margin-bottom: 10px;
+}
+
+.text-box{
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.text-box span:nth-child(1){
+    color: #000;
+    text-shadow: 0 .3rem .7rem #fff;
+}
+
+
+
+
 @media screen and (max-width: 500px) {
     .login {
         transition: 0.5s;
@@ -115,15 +133,4 @@ section .bg {
     .login h2 {
         font-size: 3.5rem;
     }
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
-    -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
-}
-
-input[type=number] {
-    -moz-appearance: textfield; /* Firefox */
 }
