@@ -8,12 +8,12 @@ from jalali_date.widgets import AdminJalaliDateWidget
 
 #
 class ReserveDateTimeAdmin(admin.ModelAdmin):
-    list_display = ['jdate', 'get_weekday', 'time', 'price', 'status']
-    list_filter = ['date', 'status', 'time']
+    list_display = ['jdate', 'get_weekday', 'time', 'price', 'status', 'is_active']
+    list_filter = ['date', 'status', 'time', 'is_active']
     # todo: this isn't work for Date Farsi.
     # search_fields = ['reserve_date', 'reserve_time', 'reserve_price', 'reserve_status']
     # search_help_text = "برای جستجو با نتیجه مناسب تر میتوانید بدین جالت سرچ کنید. روز / ماه / سال به عنوان مثال: 1401/05/01"
-    list_editable = ['status']
+    list_editable = ['status', 'is_active']
     formfield_overrides = {
         models.DateField: {
             'form_class': JalaliDateField,

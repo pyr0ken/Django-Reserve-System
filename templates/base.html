@@ -1,4 +1,3 @@
-{% load static %}
 <!Doctype html>
 <html lang="fa" dir="rtl">
 <head>
@@ -7,21 +6,14 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="icon" type="image/png" href="{% static 'image/football-icon.png' %}" sizes="16x16">
-    <link rel="stylesheet" href="{% static 'css/reset2.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% include 'inc/header_link.html' %}
     {% block headers_refrences %}{% endblock %}
 </head>
 <body>
+
 {% block content %}{% endblock %}
-{#<script>#}
-{#    const replaceDigits = function () {#}
-{#        const map = ["&\#1776;", "&\#1777;", "&\#1778;", "&\#1779;", "&\#1780;", "&\#1781;", "&\#1782;", "&\#1783;", "&\#1784;", "&\#1785;"];#}
-{#        document.body.innerHTML = document.body.innerHTML.replace(/\d(?=[^<>]*(<|$))/g, function ($0) {#}
-{#            return map[$0]#}
-{#        });#}
-{#    };#}
-{#    window.onload = replaceDigits;#}
-{#</script>#}
+
+{% include 'inc/footer_link.html'%}
+{% block footer_reference %}{% endblock %}
 </body>
 </html>

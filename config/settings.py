@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'field_lookup.apps.FieldLookupConfig',
     'accounts.apps.AccountsConfig',
     'table.apps.TableConfig',
-    'accounts_profile.apps.AccountsProfileConfig',
     'home.apps.HomeConfig',
     'order.apps.OrderConfig',
 
@@ -49,6 +48,7 @@ INSTALLED_APPS = [
     'jalali_date',
     'debug_toolbar',
     'widget_tweaks',
+    'django_cron',
 ]
 
 MIDDLEWARE = [

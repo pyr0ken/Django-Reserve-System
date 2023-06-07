@@ -3,10 +3,10 @@ from .models import User
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['full_name', 'phone_number', 'email', 'is_active']
+    list_display = ['full_name', 'phone_number', 'national_code', 'is_active']
     list_filter = ['is_active']
-    list_editable = ['is_active', 'phone_number', 'email']
-    search_fields = ['full_name', 'phone_number', 'email']
+    list_editable = ['is_active', 'phone_number']
+    search_fields = ['full_name', 'phone_number', 'national_code']
     readonly_fields = ['password']
 
 

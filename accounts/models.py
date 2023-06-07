@@ -1,14 +1,24 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from .manager import UserManager
+from .validators import is_valid_national_code, is_valid_phone_number
 
 
 class User(AbstractBaseUser):
-    full_name = models.CharField(max_length=200, verbose_name="نام و نام خانوادگی")
-    email = models.EmailField(verbose_name="ایمیل", unique=True)
-    email_active_code = models.CharField(max_length=100, verbose_name='کد فعالسازی ایمیل')
-    phone_number = models.CharField(verbose_name='شماره تلفن', max_length=11, null=True, blank=True, unique=True)
-    avatar = models.ImageField(upload_to='uploads/images', verbose_name='تصویر پروفایل', null=True, blank=True)
+    full_name = models.CharField(
+        verbose_name="نام و نام خانوادگی",
+        max_length=200
+    )
+    phone_number = models.CharField(
+        verbose_name='شماره موبایل',
+        validators=[is_valid_phone_number],
+        unique=True
+    )
+    national_code = models.CharField(
+        verbose_name="کد ملی",
+        validators=[is_valid_national_code],
+        unique=True,
+    )
 
     # required
     date_joined = models.DateTimeField(auto_now_add=True, editable=False)
@@ -18,8 +28,8 @@ class User(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_superadmin = models.BooleanField(default=False)
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['full_name']
+    USERNAME_FIELD = 'phone_number'
+    REQUIRED_FIELDS = ['full_name', 'national_code']
 
     objects = UserManager()
 
@@ -36,4 +46,3 @@ class User(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
-

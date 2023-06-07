@@ -34,7 +34,7 @@ section .bg {
     width: 500px;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
     transition: 0.5s;
 }
@@ -54,24 +54,25 @@ section .bg {
     position: relative;
 }
 
-.login .inputBox input {
+.login .inputBox input, .submit-btn input {
     position: relative;
     width: 100%;
-    padding: 15px 20px;
+    padding: 10px 20px;
     outline: none;
     font-size: 1.25rem;
     color: #000;
     border-radius: 5px;
     background: #fff;
     border: none;
-    margin-bottom: 15px;
+    /*margin-bottom: 15px;*/
 }
 
 .login .inputBox ::placeholder {
     color: #000;
+    font-size: 16px;
 }
 
-.login .inputBox #btn {
+.login .submit-btn #btn {
     position: relative;
     border: none;
     outline: none;
@@ -81,9 +82,10 @@ section .bg {
     font-size: 1.25rem;
     font-weight: 500;
     transition: 0.5s;
+    margin-top: 10px;
 }
 
-.login .inputBox #btn:hover {
+.login .submit-btn #btn:hover {
     background: #fff8;
     color: #000;
 }
@@ -91,37 +93,42 @@ section .bg {
 .login .group {
     display: flex;
     justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 500;
 }
 
 .login .group a {
-    font-size: 1.25rem;
-    color: #000;
-    font-weight: 500;
-    text-decoration: none;
-    transition: 0.5s;
+    color: #002fff;
 }
 
-.login .group a:hover {
+.login .group a:hover{
     text-decoration: underline;
+}
+
+.login label {
+    font-size: 20px;
+    font-weight: 500;
+
+}
+
+.errorlist {
+    color: #fff;
+    background-color: #0006;
+    border-radius: 0 0 5px 5px;
+    text-align: center;
 }
 
 @media screen and (max-width: 500px) {
     .login {
         transition: 0.5s;
         padding: 30px;
-        width: 400px;
+        width: 350px;
     }
 
     .login h2 {
         font-size: 3.5rem;
     }
 }
-
-
-
-
-
-
 
 
 

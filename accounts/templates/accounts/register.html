@@ -3,7 +3,7 @@
 {% load widget_tweaks %}
 
 {% block title %}
-    ورود | سامانه رزرو سالن
+    ثبت نام | سامانه رزرو سالن
 {% endblock %}
 
 {% block headers_refrences %}
@@ -12,28 +12,55 @@
 
 {% block content %}
     <section>
-        <img src="{% static 'image/0.jpg' %}" alt="" class="bg">
+        <img src="{% static 'image/4.jpg' %}" alt="" class="bg">
         <div class="login">
             <h2>ثبت نام</h2>
-{#            {% render_field  %}#}
             <div class="inputBox">
-                <input type="email" placeholder="ایمیل خود را وارد کنید.">
+                <label for="fullname">نام و نام خانوادگی:</label>
+                {% render_field register_form.full_name placeholder="نام و نام خانوادگی خود را وارد کنید." id="fullname" %}
             </div>
             <div class="inputBox">
-                <input type="password" placeholder="پسورد خود را وارد کنید.">
+                <label for="phone_number">شماره موبایل (جهت هماهنگی):</label>
+                {% render_field register_form.phone_number placeholder="********09" id="phone_number" %}
             </div>
             <div class="inputBox">
-                <input type="password" placeholder="لطفا پسورد خود را تکرار کنید.">
+                <label for="password">رمز عبور:</label>
+                {% render_field register_form.password placeholder="رمز عبور خود را وارد کنید." id="password" %}
             </div>
             <div class="inputBox">
+                <label for="confirm-password">تکرار رمز عبور:</label>
+                {% render_field register_form.confirm_password placeholder="لطفا رمز عبور خود را تکرار کنید." id="confrim-password" %}
+            </div>
+            <div class="submit-btn">
                 <input type="submit" value="ثبت نام" id="btn">
             </div>
             <div class="group">
                 <div>
-                <a href="{% url 'accounts:login_page' %}"> <strong>وارد شوید</strong></a>
+                    <p>حساب کابری دارید؟ <a href="{% url 'accounts:login_page' %}">وارد شوید!</a></p>
                 </div>
-                <a href="#">فراموشی رمز عبور</a>
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block footer_reference %}
+    <script>
+        {% if messages %}
+            {% for msg in messages %}
+                Swal.fire({
+                    title: "{{ msg }}",
+                    icon: "{{ msg.tags }}",
+                    buttons: {
+                        cancel: "بستن",
+                        login: "ورود"
+                    },
+                })
+                    .then((value) => {
+                        if (value === "login") {
+                            window.location.href = "{% url 'accounts:login_page' %}";
+                        }
+                    });
+            {% endfor %}
+        {% endif %}
+    </script>
 {% endblock %}

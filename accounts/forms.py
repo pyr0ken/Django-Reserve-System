@@ -3,6 +3,8 @@ from django.core import validators
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from .models import User
+from .validators import is_valid_phone_number
+
 
 class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label='پسورد', widget=forms.PasswordInput)
@@ -10,7 +12,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('full_name', 'email', 'email_active_code', 'phone_number', 'password')
+        fields = ('full_name', 'phone_number', 'national_code', 'password')
 
     def clean_password2(self):
         cd = self.cleaned_data
@@ -35,31 +37,45 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('full_name', 'email', 'email_active_code', 'phone_number', 'password')
+        fields = ('full_name', 'phone_number', 'national_code', 'password')
 
 
 class RegisterForm(forms.Form):
-    email = forms.EmailField(
-        label='ایمیل',
-        widget=forms.EmailInput(),
+    full_name = forms.CharField(
+        label="نام و نام خانوادگی",
+        max_length=200,
+        error_messages={
+            'required': 'لطفا نام و نام خانوادگی خود را وارد کنید.'
+        }
+    )
+    phone_number = forms.CharField(
+        label='شماره موبایل',
         validators=[
-            validators.MaxLengthValidator(100),
-            validators.EmailValidator,
-        ]
+            is_valid_phone_number,
+        ],
+        error_messages={
+            'required': 'لطفا شماره موبایل خود را وارد کنید.'
+        }
     )
     password = forms.CharField(
-        label='کلمه عبور',
+        label='رمز عبور',
         widget=forms.PasswordInput(),
         validators=[
             validators.MaxLengthValidator(100),
-        ]
+        ],
+        error_messages={
+            'required': 'لطفا رمز عبور خود را وارد کنید.'
+        }
     )
     confirm_password = forms.CharField(
-        label='تکرار کلمه عبور',
+        label='تکرار رمز عبور',
         widget=forms.PasswordInput(),
         validators=[
             validators.MaxLengthValidator(100),
-        ]
+        ],
+        error_messages={
+            'required': 'لطفا رمز عبور خود تکرار کنید.'
+        }
     )
 
     def clean_confirm_password(self):
@@ -69,51 +85,54 @@ class RegisterForm(forms.Form):
         if password == confirm_password:
             return confirm_password
 
-        raise ValidationError('کلمه عبور و تکرار کلمه عبور مغایرت دارند')
+        raise ValidationError('رمز عبور و تکرار رمز عبور مغایرت دارند')
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(
-        label='ایمیل',
-        widget=forms.EmailInput(),
+    phone_number = forms.CharField(
+        label='شماره موبایل',
         validators=[
-            validators.MaxLengthValidator(100),
-            validators.EmailValidator
-        ]
+            is_valid_phone_number
+        ],
+        error_messages={
+            'required': 'لطفا شماره موبایل خود را وارد کنید.'
+        }
     )
     password = forms.CharField(
         label='کلمه عبور',
         widget=forms.PasswordInput(),
         validators=[
             validators.MaxLengthValidator(100)
-        ]
+        ],
+        error_messages={
+            'required': 'لطفا رمز عبور خود را وارد کنید.'
+        }
     )
 
+# class ForgotPasswordForm(forms.Form):
+#     email = forms.EmailField(
+#         label='ایمیل',
+#         widget=forms.EmailInput(),
+#         validators=[
+#             validators.MaxLengthValidator(100),
+#             validators.EmailValidator
+#         ]
+#     )
 
-class ForgotPasswordForm(forms.Form):
-    email = forms.EmailField(
-        label='ایمیل',
-        widget=forms.EmailInput(),
-        validators=[
-            validators.MaxLengthValidator(100),
-            validators.EmailValidator
-        ]
-    )
 
-
-class ResetPasswordForm(forms.Form):
-    password = forms.CharField(
-        label='کلمه عبور',
-        widget=forms.PasswordInput(),
-        validators=[
-            validators.MaxLengthValidator(100),
-        ]
-    )
-
-    confirm_password = forms.CharField(
-        label='تکرار کلمه عبور',
-        widget=forms.PasswordInput(),
-        validators=[
-            validators.MaxLengthValidator(100),
-        ]
-    )
+# class ResetPasswordForm(forms.Form):
+#     password = forms.CharField(
+#         label='کلمه عبور',
+#         widget=forms.PasswordInput(),
+#         validators=[
+#             validators.MaxLengthValidator(100),
+#         ]
+#     )
+#
+#     confirm_password = forms.CharField(
+#         label='تکرار کلمه عبور',
+#         widget=forms.PasswordInput(),
+#         validators=[
+#             validators.MaxLengthValidator(100),
+#         ]
+#     )
