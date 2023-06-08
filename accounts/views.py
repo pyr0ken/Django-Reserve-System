@@ -38,7 +38,6 @@ class RegisterView(View):
                 new_user.set_password(user_password)
                 new_user.save()
                 messages.success(request, 'ثبت نام با موفقیت انجام شد. اکنون میتوانید وارد سایت شوید!')
-                return redirect(reverse('login_page'))
 
         context = {
             'register_form': register_form

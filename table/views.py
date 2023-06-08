@@ -14,7 +14,7 @@ def week_data(request: HttpRequest, week_number: int):
     end_time = start_time + timedelta(days=6)
 
     # Get days from a week number.
-    reserve_days = ReserveDateTime.objects.filter(date__range=(start_time, end_time))
+    reserve_days = ReserveDateTime.objects.filter(date__range=(start_time, end_time), is_active=True)
 
     # Change expired days status to unavailable
     # reserve_days.filter(date=today, status='AVA', time__lte=today.time()).update(status='UNA')

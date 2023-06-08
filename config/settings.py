@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'jalali_date',
     'debug_toolbar',
     'widget_tweaks',
-    'django_cron',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +80,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
@@ -185,4 +184,10 @@ JALALI_DATE_DEFAULTS = {
 # django-toolbar-debug Config:
 INTERNAL_IPS = [
     "127.0.0.1",
+]
+
+# django crontab config
+CRONJOBS = [
+    ('0 0 * * *', 'table.cron.add_new_reserve_date',
+     '>> ' + os.path.join(BASE_DIR, 'log/add_new_reserve_date.log' + ' 2>&1 ')),
 ]
