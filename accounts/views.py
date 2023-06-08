@@ -25,6 +25,7 @@ class RegisterView(View):
         if register_form.is_valid():
             user_full_name = register_form.cleaned_data.get('full_name')
             user_phone_number = register_form.cleaned_data.get('phone_number')
+            user_phone_number = digits.fa_to_en(user_phone_number)
             user_password = register_form.cleaned_data.get('password')
             user: bool = User.objects.filter(phone_number__iexact=user_phone_number).exists()
             if user:
@@ -97,7 +98,18 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect(reverse('home:home'))
-#
+
+
+class ProfileView(View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        pass
+
+
+
+
 # class ForgetPasswordView(View):
 #     def get(self, request: HttpRequest):
 #         forget_pass_form = ForgotPasswordForm()

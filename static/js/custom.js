@@ -6,6 +6,3 @@
 //     });
 // };
 // window.onload = replaceDigits;
-
-//
-// Swal.fire()

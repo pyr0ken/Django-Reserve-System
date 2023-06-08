@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
-
+from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -19,10 +19,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4$ct3w@7e1i83#io(5l7)%$n$4&^f&fdhx6t*(d7m_xsf#3*$7'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -89,11 +89,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'testdb',
-        'USER': 'mmd',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': config('RDS_DB_NAME'),
+        'USER': config('RDS_USERNAME'),
+        'PASSWORD': config('RDS_PASSWORD'),
+        'HOST': config('RDS_HOST'),
+        'PORT': config('RDS_PORT'),
     }
 }
 
@@ -191,3 +191,7 @@ CRONJOBS = [
     ('0 0 * * *', 'table.cron.add_new_reserve_date',
      '>> ' + os.path.join(BASE_DIR, 'log/add_new_reserve_date.log' + ' 2>&1 ')),
 ]
+
+# Zarin-pal Config
+# MERCHANT = "00000000-0000-0000-0000-000000000000"
+# SANDBOX = True

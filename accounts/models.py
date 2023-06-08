@@ -21,8 +21,8 @@ class User(AbstractBaseUser):
     )
 
     # required
-    date_joined = models.DateTimeField(auto_now_add=True, editable=False)
-    last_login = models.DateTimeField(auto_now_add=True, editable=False)
+    date_joined = models.DateTimeField(verbose_name="تاریخ ثبت نام",auto_now_add=True, editable=False)
+    last_login = models.DateTimeField(verbose_name="تاریخ اخرین ورود",auto_now_add=True, editable=False)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)

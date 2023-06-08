@@ -84,3 +84,24 @@
         </main>
     </div>
 {% endblock %}
+
+{% block footer_reference %}
+    <script>
+        {% if messages %}
+            {% for msg in messages %}
+                Swal.fire({
+                    title: '{{ msg }}',
+                    icon: '{{ msg.tags }}',
+                    showCancelButton: true,
+                    confirmButtonText: 'ثبت نام',
+                    cancelButtonText: 'بستن',
+                    cancelButtonColor: "red"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/accounts/register/";
+                    }
+                })
+            {% endfor %}
+        {% endif %}
+    </script>
+{% endblock %}

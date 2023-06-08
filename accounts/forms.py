@@ -62,6 +62,7 @@ class RegisterForm(forms.Form):
         widget=forms.PasswordInput(),
         validators=[
             validators.MaxLengthValidator(100),
+            validators.MinLengthValidator(8),
         ],
         error_messages={
             'required': 'لطفا رمز عبور خود را وارد کنید.'
@@ -72,6 +73,7 @@ class RegisterForm(forms.Form):
         widget=forms.PasswordInput(),
         validators=[
             validators.MaxLengthValidator(100),
+            validators.MinLengthValidator(8),
         ],
         error_messages={
             'required': 'لطفا رمز عبور خود تکرار کنید.'
@@ -85,7 +87,7 @@ class RegisterForm(forms.Form):
         if password == confirm_password:
             return confirm_password
 
-        raise ValidationError('رمز عبور و تکرار رمز عبور مغایرت دارند')
+        raise ValidationError('رمز عبور و تکرار رمز عبور یکسان نیستند.')
 
 
 class LoginForm(forms.Form):

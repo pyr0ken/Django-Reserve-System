@@ -15,34 +15,138 @@
 {% block content %}
     <section>
         <img src="{% static 'image/5.jpg' %}" alt="" class="bg">
-        <div class="login">
-            <h2>رزرو سالن</h2>
-            <div class="info-box">
-                <div class="text-box">
-                    <span>تاریخ سانس:</span>
-                    <span class="">{{ reserve_date.date|to_jalali }} - {{ reserve_date.date|get_weekday }}</span>
+        <form action="" method="POST" novalidate>
+            {% csrf_token %}
+            <div class="login">
+                <h2>رزرو سانس</h2>
+                <div class="info-box">
+                    <div class="text-box">
+                        <span>تاریخ سانس:</span>
+                        <span class="">{{ reserve_date.date|to_jalali }} - {{ reserve_date.date|get_weekday }}</span>
+                    </div>
+                    <div class="text-box">
+                        <span>زمان سانس:</span>
+                        <span class="">{{ reserve_date.time|time:"H:i" }}</span>
+                    </div>
+                    <div class="text-box">
+                        <span>قیمت سانس:</span>
+                        <span class="">{{ reserve_date.price|three_digits_currency }}</span>
+                    </div>
+                    <div class="text-box">
+                        <span style="color: red">توجه: </span>
+                        <span>اگر اطلاعات هویتی شما نادرست است میتوانید از این لینک آنها را ویرایش کنید.</span>
+                        <span><a href="{% url 'accounts:profile_page' %}" class="">ویرایش اطلاعات!</a></span>
+                    </div>
+                    {% if  request.user.national_code %}
+                        <div class="text-box">
+                            <span>کد ملی:</span>
+                            <span class="">{{ request.user.national_code }}</span>
+                        </div>
+                    {% else %}
+                        <div class="inputBox">
+                            <label for="national-code"> کد ملی: </label>
+                            {% render_field reserve_form.national_code id="national-code" placeholder="لطفا کد ملی خود را وارد کنید."%}
+                            {{ reserve_form.national_code.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="inputBox-range">
+                    <label for="reserve-count"> تعداد جلسات رزرو: </label>
+                    <span class="range-value">1</span>
+                    {% render_field reserve_form.reserve_count id="reserve-count" dir="rtl" class="range-input" %}
+                    {{ reserve_form.reserve_count.errors }}
                 </div>
                 <div class="text-box">
-                    <span>زمان سانس:</span>
-                    <span class="">{{ reserve_date.time }}</span>
+                    <span>قیمت نهایی:</span>
+                    <span class="final-price">{{ reserve_date.price|three_digits_currency }}</span><span> تومان</span>
                 </div>
-                <div class="text-box">
-                    <span>قیمت سانس:</span>
-                    <span class="">{{ reserve_date.price|three_digits_currency }}</span>
+                <div class="inputBox">
+                    <input type="submit" value="پرداخت" id="btn">
                 </div>
-            </div>
-            <div class="inputBox">
-                <input type="text" placeholder="شماره تلفن (جهت هماهنگی) :">
-            </div>
-            <div class="inputBox">
-                <input type="number" min="1" max="10" placeholder="تعداد جلسات مورد نظر :">
-            </div>
-            <div class="text-box">
-                <span>قیمت نهایی:</span>
-                <span class="">{{ reserve_date.price|three_digits_currency }}</span>
-            </div>
-            <div class="inputBox">
-                <input type="submit" value="پرداخت" id="btn">
-            </div>
+        </form>
     </section>
+{% endblock %}
+
+{% block footer_reference %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // گرفتن المان‌های مورد نظر
+            const reserveCountInput = document.querySelector("#reserve-count");
+            const finalPriceSpan = document.querySelector(".final-price");
+            const rangeValueSpan = document.querySelector(".range-value")
+
+            // تعریف تابعی برای بروزرسانی مقدار قیمت نهایی
+            const updateFinalPrice = () => {
+                const reserveCount = parseInt(reserveCountInput.value);
+                const finalPrice = reserveCount * {{ reserve_date.price }}
+                ;
+                finalPriceSpan.textContent = finalPrice.toLocaleString('fa-IR');
+                rangeValueSpan.textContent = reserveCount.toLocaleString('fa-IR');
+
+            };
+
+            // صدا زدن تابع برای بارگذاری اولیه
+            updateFinalPrice();
+
+            // اضافه کردن رویداد به ورودی رنج
+            reserveCountInput.addEventListener("input", updateFinalPrice);
+
+            // ----------------- Range Slider ---------------------
+
+            class Slider {
+                constructor(rangeElement, valueElement, options) {
+                    this.rangeElement = rangeElement
+                    {#this.valueElement = valueElement#}
+                    this.options = options
+
+                    // Attach a listener to "change" event
+                    this.rangeElement.addEventListener('input', this.updateSlider.bind(this))
+                }
+
+                // Initialize the slider
+                init() {
+                    {#this.rangeElement.setAttribute('min', options.min)#}
+                    {#this.rangeElement.setAttribute('max', options.max)#}
+                    {#this.rangeElement.value = options.cur#}
+
+                    this.updateSlider()
+                }
+
+                // Format the money
+                asMoney(value) {
+                    return parseFloat(value)
+                        .toLocaleString('fa-IR', {maximumFractionDigits: 2})
+                }
+
+                generateBackground(rangeElement) {
+                    if (this.rangeElement.value === this.options.min) {
+                        return
+                    }
+
+                    let percentage = (this.rangeElement.value - this.options.min) / (this.options.max - this.options.min) * 100
+                    return 'background: linear-gradient(to left, #50299c, #7a00ff ' + percentage + '%, #d3edff ' + percentage + '%, #dee1e2 100%)'
+                }
+
+                updateSlider(newValue) {
+                    {#this.valueElement.innerHTML = this.asMoney(this.rangeElement.value)#}
+                    this.rangeElement.style = this.generateBackground(this.rangeElement.value)
+                }
+            }
+
+            let rangeElement = document.querySelector('.range-input')
+            let valueElement = document.querySelector('.range-value')
+
+            let options = {
+                min: 1,
+                max: 4,
+                cur: 1
+            }
+
+            if (rangeElement) {
+                let slider = new Slider(rangeElement, valueElement, options)
+
+                slider.init()
+            }
+        });
+    </script>
 {% endblock %}

@@ -7,7 +7,7 @@ class UserAdmin(admin.ModelAdmin):
     list_filter = ['is_active']
     list_editable = ['is_active', 'phone_number']
     search_fields = ['full_name', 'phone_number', 'national_code']
-    readonly_fields = ['password']
+    readonly_fields = ['password', 'date_joined', 'last_login']
 
 
 admin.site.register(User, UserAdmin)

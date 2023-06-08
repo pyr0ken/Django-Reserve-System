@@ -5,6 +5,7 @@ from django.core.validators import MinValueValidator
 
 
 class Order(models.Model):
+    authority = models.BigIntegerField(primary_key=True)
     user = models.ForeignKey(
         verbose_name='کاربر',
         to=settings.AUTH_USER_MODEL,
@@ -16,17 +17,29 @@ class Order(models.Model):
         on_delete=models.CASCADE,
         related_name='reserve_date_orders')
     is_paid = models.BooleanField(
-        verbose_name='نهایی شده/نشده'
+        verbose_name='پرداخت شده/نشده',
+        default=False,
     )
     payment_date = models.DateTimeField(
         verbose_name='تاریخ پرداخت',
-        null=True,
-        blank=True
+        auto_now_add=True,
     )
     reserve_count = models.PositiveSmallIntegerField(
-        verbose_name='تعداد رزرو',
+        verbose_name='تعداد جلسات رزرو',
         default=1,
         validators=[MinValueValidator(1)],
+    )
+    reference_id = models.IntegerField(
+        verbose_name='کد رهگیری',
+        blank=True,
+        null=True
+    ),
+    final_price = models.DecimalField(
+        verbose_name="قیمت",
+        max_digits=10,
+        decimal_places=0,
+        default=0,
+        help_text="لطفا هزینه رزرو را به <strong>تومان</strong> وارد کنید."
     )
 
     def __str__(self):

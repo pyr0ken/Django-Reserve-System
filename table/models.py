@@ -70,7 +70,7 @@ class ReserveDateTime(models.Model):
         day = date2jalali(self.date).day
         hour = self.time.hour
         minute = self.time.minute
-        return reverse('order:order_page', args=[year, month, day, hour, minute])
+        return reverse('order:order_pay', args=[year, month, day, hour, minute])
 
     def get_weekday(self):
         days_of_week = ['دوشنبه', 'سه شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه', 'شنبه', 'یکشنبه']

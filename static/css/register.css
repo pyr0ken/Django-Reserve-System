@@ -111,6 +111,13 @@ section .bg {
 
 }
 
+.errorlist {
+    color: #fff;
+    background-color: #0006;
+    border-radius: 0 0 5px 5px;
+    text-align: center;
+}
+
 @media screen and (max-width: 500px) {
     .login {
         transition: 0.5s;
