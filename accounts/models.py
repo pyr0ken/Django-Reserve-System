@@ -18,6 +18,8 @@ class User(AbstractBaseUser):
         verbose_name="کد ملی",
         validators=[is_valid_national_code],
         unique=True,
+        null=True,
+        blank=True,
     )
 
     # required
@@ -29,7 +31,7 @@ class User(AbstractBaseUser):
     is_superadmin = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'phone_number'
-    REQUIRED_FIELDS = ['full_name', 'national_code']
+    REQUIRED_FIELDS = ['full_name']
 
     objects = UserManager()
 

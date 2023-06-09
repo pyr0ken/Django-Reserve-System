@@ -5,7 +5,7 @@ from datetime import timedelta
 
 def add_new_reserve_date():
     yesterday = get_current_time() - timedelta(days=1)
-    ReserveDateTime.objects.filter(date__exact=yesterday, is_active=True).update(is_active=False, status='UNA')
+    ReserveDateTime.objects.filter(date__exact=yesterday, is_active=True).update(is_active=False)
     last_reserve_date = ReserveDateTime.objects.last()
     tomorrow = last_reserve_date.date + timedelta(days=1)
     new_reservations = []
