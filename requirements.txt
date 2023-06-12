@@ -5,6 +5,9 @@ django-jalali-date==1.0.2
 django-widget-tweaks==1.4.12
 jdatetime==4.1.1
 persiantools==3.0.1
+psycopg2==2.9.6
+python-decouple==3.8
+pytz==2023.3
 sqlparse==0.4.4
 suds==1.1.2
 typing_extensions==4.6.3
