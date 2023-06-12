@@ -37,13 +37,14 @@ table tbody td.th-orange {
 }
 
 body {
-    background: url(../image/8.jpg) center / cover
+    background: url(../image/bg-7.jpg) center / cover
 }
 
 .table-div {
     min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -173,7 +174,7 @@ tbody tr:hover {
 
 @media screen and (max-width: 700px) and (min-width: 300px) {
     .table {
-        width: 92vw;
+        width: calc(100% - 10px);
         transition: 0.5s;
         margin-top: 10px;
     }
@@ -218,7 +219,7 @@ table tbody td.th-orange {
     background-color: #fd7919 !important;
     border: 1px solid #d5d1de;
     color: #fff;
-    /*font-weight: bold;*/
+    /*webfonts-weight: bold;*/
 }
 
 table tbody td.th-orange a {
@@ -255,3 +256,136 @@ table tbody td a span {
 table tbody td a {
     font-size: 16px !important;
 }
+
+header {
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+    width: 80vw;
+}
+
+ul {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul li {
+    list-style: none;
+    margin: 0 10px;
+}
+
+ul li a {
+    position: relative;
+    color: #000;
+    font-size: 20px;
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 20px;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    overflow: hidden;
+    backdrop-filter: blur(15px);
+    border-radius: 25px;
+    transition: .5s;
+}
+
+
+#marker {
+    position: absolute;
+    top: 0;
+    right: 30px;
+    width: 41px;
+    height: 41px;
+    z-index: 1;
+    transition: 0.5s;
+}
+
+#marker::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transition: 0.5s;
+    background: #fff;
+    box-shadow: 0 0 15px #fff, 0 0 30px #fff, 0 0 45px #fff, 0 0 60px #fff;
+}
+
+ul li:nth-child(1):hover ~ #marker::before {
+    background: #5da6ff;
+    box-shadow: 0 0 15px #5da6ff, 0 0 30px #5da6ff, 0 0 45px #5da6ff,
+    0 0 60px #5da6ff;
+}
+
+ul li:nth-child(2):hover ~ #marker::before {
+    background: #f00;
+    box-shadow: 0 0 15px #f00, 0 0 30px #f00, 0 0 45px #f00, 0 0 60px #f00;
+}
+
+ul li:nth-child(3):hover ~ #marker::before {
+    background: #ff0;
+    box-shadow: 0 0 15px #ff0, 0 0 30px #ff0, 0 0 45px #ff0, 0 0 60px #ff0;
+}
+
+ul li:nth-child(4):hover ~ #marker::before {
+    background: #0f0;
+    box-shadow: 0 0 15px #0f0, 0 0 30px #0f0, 0 0 45px #0f0, 0 0 60px #0f0;
+}
+
+ul li:nth-child(5):hover ~ #marker::before {
+    background: #df2fff;
+    box-shadow: 0 0 15px #df2fff, 0 0 30px #df2fff, 0 0 45px #df2fff,
+    0 0 60px #df2fff;
+}
+
+@media (max-width: 1020px) {
+    header {
+        position: relative;
+        flex-direction: column;
+        width: 90%;
+        top: 5px;
+        padding: 10px;
+        right: 0;
+        left: 0;
+    }
+
+    header ul {
+        margin-top: 10px;
+        flex-wrap: wrap-reverse;
+        justify-content: center;
+    }
+
+    header ul li a {
+        display: inline-block;
+    }
+}
+
+@media (max-width: 768px) {
+    #marker {
+        display: none;
+    }
+
+    header ul li a:hover {
+        background: #2C2C2C;
+        color: #fff;
+    }
+}
+
+

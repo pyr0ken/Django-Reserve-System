@@ -1,0 +1,22 @@
+{% load static %}
+<div class="sidebar">
+    <div class="profile">
+        <div class="profile-img-box">
+            <img src="{% static 'image/profile-icon.png' %}" alt=""/>
+        </div>
+        <h3 class="name">پروفایل کاربری</h3>
+    </div>
+    <div class="sidebar-items" dir="ltr">
+        <a href="{% url 'accounts:reserve_history_page' %}"
+           class="{% if request.resolver_match.url_name == "reserve_history_page" %} active {% else %}sidebar-item{% endif %}">تاریخچه
+            رزرو ها&#160&#160<i class="fa-solid fa-calendar-days"></i></a>
+        <a href="{% url 'accounts:edit_profile_page' %}"
+           class="{% if request.resolver_match.url_name == "edit_profile_page" %} active {% else %}sidebar-item{% endif %}">ویرایش
+            اطلاعات&#160&#160<i
+                    class="fa-solid fa-pen-to-square"></i></a>
+        <a href="{% url 'accounts:change_password_page' %}"
+           class="{% if request.resolver_match.url_name == "change_password_page" %} active {% else %}sidebar-item{% endif %}">تغییر
+            رمز عبور&#160&#160<i class="fa-solid fa-key"></i></a>
+    </div>
+    <br/>
+</div>

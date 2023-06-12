@@ -5,12 +5,12 @@ from django.core.validators import MinValueValidator
 
 
 class Order(models.Model):
-    authority = models.BigIntegerField(primary_key=True)
     user = models.ForeignKey(
         verbose_name='کاربر',
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='user_orders')
+        related_name='user_orders'
+    )
     reserve_date = models.ForeignKey(
         verbose_name='تاریخ رزرو',
         to=ReserveDateTime,
@@ -29,13 +29,18 @@ class Order(models.Model):
         default=1,
         validators=[MinValueValidator(1)],
     )
-    reference_id = models.IntegerField(
+    reference_id = models.BigIntegerField(
         verbose_name='کد رهگیری',
         blank=True,
         null=True
-    ),
+    )
+    authority = models.BigIntegerField(
+        verbose_name="شناسه پرداخت",
+        null=True,
+        blank=True
+    )
     final_price = models.DecimalField(
-        verbose_name="قیمت",
+        verbose_name="قیمت نهایی",
         max_digits=10,
         decimal_places=0,
         default=0,

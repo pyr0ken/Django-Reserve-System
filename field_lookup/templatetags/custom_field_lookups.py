@@ -10,10 +10,7 @@ def three_digits_currency(value: int) -> str:
     return '{:,}'.format(value) + ' تومان'
 
 # todo: (: ببین پسر تو یه نابغه ای
-# @register.simple_tag(name='list_indexing')
-# def list_indexing(week_list: List, index: int, *args, **kwargs):
-#     return week_list[index]
-#
+
 #
 @register.filter(name='get_weekday')
 def get_weekday(value) -> str:

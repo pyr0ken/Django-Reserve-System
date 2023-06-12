@@ -1,25 +1,17 @@
+import datetime
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views import View
-from django.contrib.auth import get_user_model
 from django.contrib import messages
 from jalali_date import date2jalali
 from jdatetime import JalaliToGregorian
-from utils.get_current_time import get_current_time
 from table.models import ReserveDateTime
+from utils.get_weekday_current_number import get_weekday_current_number
+from utils.get_current_time import get_current_time
 from .forms import OrderAddForm
 from .models import Order
-from .zarinpal import Zarinpal, ZarinpalError
-
-'''
- if you want to test youre code on your machine without a real transaction
- you able to use zarinpal sandbox like following code
- if you want use in your product, remove sandbox and replace real mercand and callback url then use it!
-'''
-zarin_pal = Zarinpal('XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX',
-                     'http://127.0.0.1:8000/order/verify',
-                     sandbox=True)
+from .zarinpal import payment_request, payment_verification, ZarinpalError
 
 
 class OrderPayView(View):
@@ -32,15 +24,31 @@ class OrderPayView(View):
         hour = kwargs.get('hour')
         minute = kwargs.get('minute')
 
+        today = get_current_time()
         date = JalaliToGregorian(year, month, day).getGregorianList()  # -> tuple(year, month, day)
+        reserve_current_date = datetime.date(date[0], date[1], date[2])
+
+        if reserve_current_date < today.date():
+            raise Http404
 
         self.reserve_date = get_object_or_404(ReserveDateTime,
                                               status='AVA',
+                                              is_active=True,
                                               date__year=date[0],
                                               date__month=date[1],
                                               date__day=date[2],
                                               time__hour=hour,
                                               time__minute=minute)
+
+        reserve_date_weekday = self.reserve_date.date.weekday()
+        reserve_date_current_weekday = get_weekday_current_number(reserve_date_weekday)
+
+        self.reserve_current_count = ReserveDateTime.objects.filter(
+            date__gte=self.reserve_date.date,
+            date__week_day=reserve_date_current_weekday,
+            time__exact=self.reserve_date.time,
+        ).count()
+
         super().setup(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
@@ -51,49 +59,37 @@ class OrderPayView(View):
 
     def get(self, request, *args, **kwargs):
         reserve_form = OrderAddForm()
-
         context = {
             'reserve_date': self.reserve_date,
-            'reserve_form': reserve_form
+            'reserve_form': reserve_form,
+            'reserve_current_count': self.reserve_current_count
         }
 
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         reserve_form = OrderAddForm(request.POST)
-
         if reserve_form.is_valid():
-            if request.user.national_code:
-                national_code = request.user.national_code
-            else:
-                national_code = reserve_form.cleaned_data.get("national_code")
-                request.user.national_code = national_code
             reserve_count = reserve_form.cleaned_data.get("reserve_count")
-            # 1:
-            if reserve_count not in [1, 2, 3, 4]:
+
+            # Check count is an integer.
+            if reserve_count not in range(1, self.reserve_current_count + 1):
                 reserve_form.add_error('reserve_count', "تعداد جلسات وارد شده معتبر نمی باشد.")
-            # 2:
-            UserModel = get_user_model()
-            user: bool = UserModel.objects.filter(national_code__iexact=national_code).exists()
-            if user:
-                reserve_form.add_error('national_code', 'این کد ملی در سییستم موجود میباشد.')
             else:
                 amount = self.reserve_date.price * reserve_count
-                description = f'شما درحال رزرو سانس ورزشی با تاریخ {date2jalali(self.reserve_date.date)} و زمان {self.reserve_date.time} هستید. با تشکر - سامانه رزرو سالن'
+                reserve_date_jalali = str(date2jalali(self.reserve_date.date))
+                description = f'شما درحال رزرو سانس ورزشی با تاریخ {reserve_date_jalali} و زمان {self.reserve_date.time} هستید. با تشکر - سامانه رزرو سالن'
                 mobile = request.user.phone_number
                 try:
-                    # try to create payment if success get url to redirect it
-                    redirect_url = zarin_pal.payment_request(amount, description, mobile=mobile)
-
                     new_order = Order(
                         user_id=request.user.id,
                         reserve_date=self.reserve_date,
                         reserve_count=reserve_count,
                         final_price=amount,
-                        authority=zarin_pal.authority,
                         is_paid=False,
                     )
-                    new_order.save()
+                    # try to create payment if success get url to redirect it
+                    redirect_url = payment_request(amount, description, mobile=mobile, order=new_order)
 
                     # redirect user to zarinpal payment gate to paid
                     return redirect(redirect_url)
@@ -106,7 +102,6 @@ class OrderPayView(View):
             'reserve_date': self.reserve_date,
             'reserve_form': reserve_form,
         }
-
         return render(request, self.template_name, context)
 
 
@@ -123,33 +118,44 @@ class OrderVerifyView(View):
                 except ObjectDoesNotExist:
                     return HttpResponse('we can\'t find this transaction')
 
-                code, message, ref_id = zarin_pal.payment_verification(order.final_price, authority)
+                code, message, ref_id = payment_verification(order.final_price, authority)
 
                 # everything is okey
                 if code == 100:
                     order.reference_id = ref_id
                     order.is_paid = True
+                    order.save()
                     for count in range(1, order.reserve_count + 1):
                         order_weekday = order.reserve_date.date.weekday()
-                        ReserveDateTime.objects.filter(date__week_day=order_weekday,
-                                                       time__exact=order.reserve_date.time).update(status='BOK')
-                    order.save()
+                        order_current_weekday = get_weekday_current_number(order_weekday)
+                        order_reserve_date = ReserveDateTime.objects.filter(
+                            date__gte=order.reserve_date.date,
+                            date__week_day=order_current_weekday,
+                            time__exact=order.reserve_date.time,
+                            status__exact='AVA',
+                            is_active=True,
+                        ).order_by('date').first()
+                        order_reserve_date.status = 'BOK'
+                        order_reserve_date.save()
 
                     content = {
                         'type': 'Success',
                         'ref_id': ref_id
                     }
-                    return render(request, 'zarinpal/transaction_status.html', context=content)
+                    messages.success(request, f'پرداخت با موفیقت انجام شد. کد رهگیری {ref_id}')
+                    return redirect('home:home')
 
                 # operation was successful but PaymentVerification operation on this transaction have already been done
                 elif code == 101:
                     content = {
                         'type': 'Warning'
                     }
-                    return render(request, 'zarinpal/transaction_status.html', context=content)
+                    messages.error(request, f'پرداخت با خطا مواجه شد.')
+                    return redirect('home:home')
 
             # if got an error from zarinpal
             except ZarinpalError as e:
                 return HttpResponse(e)
 
-        return render(request, 'zarinpal/transaction_status.html')
+        messages.error(request, f'پرداخت با خطا مواجه شد.')
+        return redirect('home:home')

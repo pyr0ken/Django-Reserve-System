@@ -14,6 +14,7 @@
 
 {% block content %}
     <div class="table-div">
+        {% include 'inc/menubar.html' %}
         <main class="table">
             <section class="table__header">
                 <a href="{% url 'table:week_data' week_number=1 %}"
@@ -22,9 +23,6 @@
                 <a href="{% url 'table:week_data' week_number=2 %}"
                    class="{% if request.resolver_match.url_name == 'week_data' and request.resolver_match.kwargs.week_number == 2 %}url_resolver{% endif %}">هفته
                     دوم</a>
-                <h1 id="title">
-                    رزرو سالن
-                </h1>
                 <a href="{% url 'table:week_data' week_number=3 %}"
                    class="{% if request.resolver_match.url_name == 'week_data' and request.resolver_match.kwargs.week_number == 3 %}url_resolver{% endif %}">هفته
                     سوم</a>
@@ -86,6 +84,7 @@
 {% endblock %}
 
 {% block footer_reference %}
+    <script src="{% static 'js/custom.js' %}"></script>
     <script>
         {% if messages %}
             {% for msg in messages %}

@@ -10,7 +10,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url(../image/home-back.jpg);
+    background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(176,229,208,1) 42%, rgba(92,202,238,0.41) 93.6% );
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -21,8 +21,7 @@
     position: relative;
     width: calc(100% - 100px);
     min-height: calc(100vh - 200px);
-    /* min-height: 300px; */
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(5px);
     border-radius: 5px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
@@ -109,7 +108,7 @@ ul li a {
     height: 50%;
     background: rgba(255, 255, 255, 0.1);
 } */
-/* 
+/*
 ul li:first-child a{
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
@@ -274,7 +273,7 @@ ul li:nth-child(5):hover ~ #marker::before {
 
     header ul {
         margin-top: 10px;
-        flex-wrap: wrap;
+        flex-wrap: wrap-reverse;
         justify-content: center;
     }
 

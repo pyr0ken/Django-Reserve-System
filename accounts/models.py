@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from .manager import UserManager
-from .validators import is_valid_national_code, is_valid_phone_number
+from .validators import is_valid_phone_number
 
 
 class User(AbstractBaseUser):
@@ -13,13 +13,6 @@ class User(AbstractBaseUser):
         verbose_name='شماره موبایل',
         validators=[is_valid_phone_number],
         unique=True
-    )
-    national_code = models.CharField(
-        verbose_name="کد ملی",
-        validators=[is_valid_national_code],
-        unique=True,
-        null=True,
-        blank=True,
     )
 
     # required

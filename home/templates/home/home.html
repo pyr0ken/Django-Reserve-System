@@ -14,28 +14,18 @@
 {% block content %}
     <div class="main">
       <div class="container">
-        <header dir="ltr">
-            <a href="{% url 'home:home' %}"><img src="{% static 'image/logo.png' %}" class="logo" width="150px" alt=""></a>
-            <ul>
-                <li><a href="#">پروفایل</a></li>
-                <li><a href="#">ورود</a></li>
-                <li><a href="#">ثبت نام</a></li>
-                <li><a href="#">جدول زمانبندی</a></li>
-                <li><a href="#" class="Home">خانه</a></li>
-              <div id="marker"></div>
-            </ul>
-        </header>
+        {% include 'inc/menubar.html' %}
         <div class="content">
           <h2>سامانه رزرو سالن</h2><br>
           <p>
             خوش آمدید به اولین سامانه رزرو آنلاین شهرستان چابهار!
             شما در این سایت میتوانید در کمترین زمان ممکن سانس مورد نظر خود را برای سالن ورنا رزرو کنید.
-            (توجه :‌ سایت در نسخه آزمایشی قرار دارد و تمامی پرداخت ها غیر واقعی میباشند.)
+            (توجه : سایت در نسخه آزمایشی قرار دارد و تمامی پرداخت ها غیر واقعی میباشند.)
           </p>
           <a href="{% url 'table:week_data' week_number=1 %}">جدول زمانبدی</a>
         </div>
         <div class="imgBox">
-            <img src="{% static 'image/home-charc.png' %}" alt="">
+            <img src="{% static 'image/character.png' %}" alt="">
         </div>
         <p class="copyrightText" dir="ltr">
             Developed By Mohammad Hosein Yaghoubi. Copyright &#169 2023 Reserve Varna Salon. All Right Reserved.
@@ -45,28 +35,8 @@
 {% endblock %}
 
 {% block footer_reference %}
+    <script src="{% static 'js/custom.js' %}"></script>
     <script>
-        const marker = document.querySelector('#marker');
-        const item = document.querySelectorAll('ul li a');
-
-        function Indicator(e){
-            marker.style.left = e.offsetLeft+'px'
-            marker.style.width = e.offsetWidth+'px'
-        }
-
-
-
-        item.forEach(link => {
-            link.addEventListener('mousemove', (e) => {
-                Indicator(e.target)
-            })
-        });
-
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const homeLink = document.querySelector('.Home');
-            Indicator(homeLink);
-        });
-
         {% if messages %}
             {% for msg in messages %}
                 Swal.fire({

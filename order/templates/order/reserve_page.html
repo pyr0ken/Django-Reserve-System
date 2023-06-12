@@ -13,61 +13,55 @@
 {% endblock %}
 
 {% block content %}
-    <section>
-        <img src="{% static 'image/5.jpg' %}" alt="" class="bg">
-        <form action="" method="POST" novalidate>
-            {% csrf_token %}
-            <div class="login">
-                <h2>رزرو سانس</h2>
-                <div class="info-box">
-                    <div class="text-box">
-                        <span>تاریخ سانس:</span>
-                        <span class="">{{ reserve_date.date|to_jalali }} - {{ reserve_date.date|get_weekday }}</span>
-                    </div>
-                    <div class="text-box">
-                        <span>زمان سانس:</span>
-                        <span class="">{{ reserve_date.time|time:"H:i" }}</span>
-                    </div>
-                    <div class="text-box">
-                        <span>قیمت سانس:</span>
-                        <span class="">{{ reserve_date.price|three_digits_currency }}</span>
-                    </div>
-                    <div class="text-box">
-                        <span style="color: red">توجه: </span>
-                        <span>اگر اطلاعات هویتی شما نادرست است میتوانید از این لینک آنها را ویرایش کنید.</span>
-                        <span><a href="{% url 'accounts:profile_page' %}" class="">ویرایش اطلاعات!</a></span>
-                    </div>
-                    {% if  request.user.national_code %}
+    <div class="main">
+        <section>
+            <img src="{% static 'image/bg-5.jpg' %}" alt="" class="bg">
+            {% include 'inc/menubar.html' %}
+            <form action="" method="POST" novalidate>
+                {% csrf_token %}
+                <div class="login">
+                    <h2>رزرو سانس</h2>
+                    <div class="info-box">
                         <div class="text-box">
-                            <span>کد ملی:</span>
-                            <span class="">{{ request.user.national_code }}</span>
+                            <span>تاریخ سانس:</span>
+                            <span class="">{{ reserve_date.date|to_jalali }} - {{ reserve_date.date|get_weekday }}</span>
                         </div>
-                    {% else %}
-                        <div class="inputBox">
-                            <label for="national-code"> کد ملی: </label>
-                            {% render_field reserve_form.national_code id="national-code" placeholder="لطفا کد ملی خود را وارد کنید."%}
-                            {{ reserve_form.national_code.errors }}
+                        <div class="text-box">
+                            <span>زمان سانس:</span>
+                            <span class="">{{ reserve_date.time|time:"H:i" }}</span>
                         </div>
-                    {% endif %}
-                </div>
-                <div class="inputBox-range">
-                    <label for="reserve-count"> تعداد جلسات رزرو: </label>
-                    <span class="range-value">1</span>
-                    {% render_field reserve_form.reserve_count id="reserve-count" dir="rtl" class="range-input" %}
-                    {{ reserve_form.reserve_count.errors }}
-                </div>
-                <div class="text-box">
-                    <span>قیمت نهایی:</span>
-                    <span class="final-price">{{ reserve_date.price|three_digits_currency }}</span><span> تومان</span>
-                </div>
-                <div class="inputBox">
-                    <input type="submit" value="پرداخت" id="btn">
-                </div>
-        </form>
-    </section>
+                        <div class="text-box">
+                            <span>قیمت سانس:</span>
+                            <span class="">{{ reserve_date.price|three_digits_currency }}</span>
+                        </div>
+                        <div class="text-box">
+                            <span style="color: red">توجه: </span>
+                            <span>اگر اطلاعات هویتی شما نادرست است میتوانید از این لینک آنها را ویرایش کنید.</span>
+                            <span><a href="{% url 'accounts:edit_profile_page' %}" class="">ویرایش اطلاعات!</a></span>
+                        </div>
+                    </div>
+                    <div class="inputBox-range">
+                        <label for="reserve-count"> تعداد جلسات رزرو: </label>
+                        <span class="range-value">1</span>
+                        {% with reserve_current_count as count %}
+                            {% render_field reserve_form.reserve_count id="reserve-count" dir="rtl" class="range-input" min="1" max=count %}
+                            {{ reserve_form.reserve_count.errors }}
+                        {% endwith %}
+                    </div>
+                    <div class="text-box">
+                        <span>قیمت نهایی:</span>
+                        <span class="final-price">{{ reserve_date.price|three_digits_currency }}</span><span> تومان</span>
+                    </div>
+                    <div class="inputBox">
+                        <input type="submit" value="پرداخت" id="btn">
+                    </div>
+            </form>
+        </section>
+    </div>
 {% endblock %}
 
 {% block footer_reference %}
+    <script src="{% static 'js/custom.js' %}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // گرفتن المان‌های مورد نظر
@@ -138,7 +132,7 @@
 
             let options = {
                 min: 1,
-                max: 4,
+                max: {{ reserve_current_count }},
                 cur: 1
             }
 

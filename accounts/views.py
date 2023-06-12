@@ -1,14 +1,16 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.views import View
-from .models import User
-from django.utils.crypto import get_random_string
-from django.http import Http404, HttpRequest, JsonResponse
-from django.contrib.auth import login, logout, authenticate
-from utils.email_service import send_email
-from .forms import RegisterForm, LoginForm
 from django.contrib import messages
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.views import PasswordChangeView
+from django.http import HttpRequest
+from django.shortcuts import render, redirect
+from django.urls import reverse, reverse_lazy
+from django.views import View
+from order.models import Order
 from persiantools import digits
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from .forms import RegisterForm, LoginForm, CustomPasswordChangeForm, EditProfileModelForm
+from .models import User
 
 
 class RegisterView(View):
@@ -47,23 +49,6 @@ class RegisterView(View):
         return render(request, 'accounts/register.html', context)
 
 
-# class ActivateAccountView(View):
-#     def get(self, request, email_active_code):
-#         user: User = User.objects.filter(email_active_code__iexact=email_active_code).first()
-#         if user is not None:
-#             if not user.is_active:
-#                 user.is_active = True
-#                 user.email_active_code = get_random_string(72)
-#                 user.save()
-#                 # todo: show success message to user
-#                 return redirect(reverse('login_page'))
-#             else:
-#                 # todo: show your account was activated message to user
-#                 pass
-#
-#         raise Http404
-
-
 class LoginView(View):
     def get(self, request):
         login_form = LoginForm()
@@ -100,65 +85,45 @@ class LogoutView(View):
         return redirect(reverse('home:home'))
 
 
-class ProfileView(View):
+class ProfileReserveHistoryView(View):
     def get(self, request):
-        pass
+        template_name = 'accounts/reserve_history.html'
+
+        user_orders = Order.objects.filter(user_id=request.user.id, is_paid=True)
+
+        context = {
+            'user_orders': user_orders,
+        }
+
+        return render(request, template_name, context)
+
+
+# @method_decorator(cache_page(0), name='dispatch')
+class ProfileEditView(View):
+    template_name = 'accounts/edit_profile.html'
+
+    def get(self, request):
+        current_user = User.objects.filter(id=request.user.id).first()
+        edit_form = EditProfileModelForm(instance=current_user)
+        context = {
+            'form': edit_form,
+        }
+        return render(request, self.template_name, context)
 
     def post(self, request):
-        pass
+        current_user = User.objects.filter(id=request.user.id).first()
+        edit_form = EditProfileModelForm(request.POST, instance=current_user)
+        if edit_form.is_valid():
+            edit_form.save(commit=True)
+
+        context = {
+            'form': edit_form,
+        }
+
+        return render(request, self.template_name, context)
 
 
-
-
-# class ForgetPasswordView(View):
-#     def get(self, request: HttpRequest):
-#         forget_pass_form = ForgotPasswordForm()
-#         context = {'forget_pass_form': forget_pass_form}
-#         return render(request, 'accounts/forgot_password.html', context)
-#
-#     def post(self, request: HttpRequest):
-#         forget_pass_form = ForgotPasswordForm(request.POST)
-#         if forget_pass_form.is_valid():
-#             user_email = forget_pass_form.cleaned_data.get('email')
-#             user: User = User.objects.filter(email__iexact=user_email).first()
-#             if user is not None:
-#                 send_email('بازیابی کلمه عبور', user.email, {'user': user}, 'emails/forgot_password.html')
-#                 return redirect(reverse('home_page'))
-#
-#         context = {'forget_pass_form': forget_pass_form}
-#         return render(request, 'accounts/forgot_password.html', context)
-#
-#
-# class ResetPasswordView(View):
-#     def get(self, request: HttpRequest, active_code):
-#         user: User = User.objects.filter(email_active_code__iexact=active_code).first()
-#         if user is None:
-#             return redirect(reverse('login_page'))
-#
-#         reset_pass_form = ResetPasswordForm()
-#
-#         context = {
-#             'reset_pass_form': reset_pass_form,
-#             'user': user
-#         }
-#         return render(request, 'accounts/reset_password.html', context)
-#
-#     def post(self, request: HttpRequest, active_code):
-#         reset_pass_form = ResetPasswordForm(request.POST)
-#         user: User = User.objects.filter(email_active_code__iexact=active_code).first()
-#         if reset_pass_form.is_valid():
-#             if user is None:
-#                 return redirect(reverse('login_page'))
-#             user_new_pass = reset_pass_form.cleaned_data.get('password')
-#             user.set_password(user_new_pass)
-#             user.email_active_code = get_random_string(72)
-#             user.is_active = True
-#             user.save()
-#             return redirect(reverse('login_page'))
-#
-#         context = {
-#             'reset_pass_form': reset_pass_form,
-#             'user': user
-#         }
-#
-#         return render(request, 'accounts/reset_password.html', context)
+class ProfileChangePasswordView(PasswordChangeView):
+    success_url = reverse_lazy('accounts:login_page')
+    form_class = CustomPasswordChangeForm
+    template_name = 'accounts/change_password.html'
