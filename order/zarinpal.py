@@ -2,7 +2,6 @@
     Zarin-pal config
 """
 from django.conf import settings
-from django.shortcuts import redirect
 from suds.client import Client
 
 if settings.SANDBOX:

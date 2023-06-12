@@ -8,7 +8,7 @@
 
 {% block headers_refrences %}
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-    <link rel="stylesheet" href="{% static 'css/edit_profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base_form_profile.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -44,5 +44,15 @@
 {% endblock %}
 
 {% block footer_reference %}
-
+    <script>
+        {% if messages %}
+            {% for msg in messages %}
+                Swal.fire({
+                    title: "{{ msg }}",
+                    icon: "{{ msg.tags }}",
+                    confirmButton: "باشه"
+                })
+            {% endfor %}
+        {% endif %}
+    </script>
 {% endblock %}

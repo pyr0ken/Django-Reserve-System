@@ -9,6 +9,8 @@
 {% endblock %}
 
 {% block headers_refrences %}
+    <link rel="stylesheet" href="{% static 'css/base_form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base_menubar.css' %}">
     <link rel="stylesheet" href="{% static 'css/reserve_page.css' %}">
 {% endblock %}
 
@@ -19,7 +21,7 @@
             {% include 'inc/menubar.html' %}
             <form action="" method="POST" novalidate>
                 {% csrf_token %}
-                <div class="login">
+                <div class="login persian-digit">
                     <h2>رزرو سانس</h2>
                     <div class="info-box">
                         <div class="text-box">
@@ -52,7 +54,7 @@
                         <span>قیمت نهایی:</span>
                         <span class="final-price">{{ reserve_date.price|three_digits_currency }}</span><span> تومان</span>
                     </div>
-                    <div class="inputBox">
+                    <div class="submit-btn">
                         <input type="submit" value="پرداخت" id="btn">
                     </div>
             </form>

@@ -1,17 +1,27 @@
 {% load static %}
 <header dir="ltr">
-    <a href="{% url 'home:home' %}"><img src="{% static 'image/logo.png' %}" class="logo" width="150px"
-                                         alt=""></a>
+    <a href="{% url 'home:home' %}"><img src="{% static 'image/logo.png' %}" class="logo" width="150px" alt=""></a>
     <ul>
         {% if request.user.is_authenticated %}
             <li><a href="{% url 'accounts:logout_page' %}" class="Logout">خروج</a></li>
-            <li><a href="{% url 'accounts:reserve_history_page' %}" class="Profile {% if request.resolver_match.url_name == 'profile'%}active-menubar{% endif %}">پروفایل</a></li>
+            {% with 'reserve_history_page edit_profile_page change_password_page' as profile %}
+                <li><a href="{% url 'accounts:reserve_history_page' %}"
+                       class="Profile {% if request.resolver_match.url_name in profile %}active-menubar{% endif %}">پروفایل</a>
+                </li>
+            {% endwith %}
         {% else %}
-        <li><a href="{% url 'accounts:login_page' %}" class="Login {% if request.resolver_match.url_name == 'login_page'%}active-menubar{% endif %}">ورود</a></li>
-        <li><a href="{% url 'accounts:register_page' %}" class="Register  {% if request.resolver_match.url_name == 'register_page'%}active-menubar{% endif %}">ثبت نام</a></li>
+            <li><a href="{% url 'accounts:login_page' %}"
+                   class="Login {% if request.resolver_match.url_name == 'login_page' %}active-menubar{% endif %}">ورود</a>
+            </li>
+            <li><a href="{% url 'accounts:register_page' %}"
+                   class="Register {% if request.resolver_match.url_name == 'register_page' %}active-menubar{% endif %}">ثبت
+                نام</a></li>
         {% endif %}
-        <li><a href="{% url 'table:week_data' week_number=1 %}" class="Table  {% if request.resolver_match.url_name == 'table'%}active{% endif %}">جدول زمانبندی</a></li>
-        <li><a href="{% url 'home:home' %}" class="Home  {% if request.resolve_match.url_name == 'home'%}active{% endif %}">خانه</a></li>
+        <li><a href="{% url 'table:week_data' week_number=1 %}"
+               class="Table {% if request.resolver_match.url_name == 'week_data' %}active-menubar{% endif %}">جدول
+            زمانبندی</a></li>
+        <li><a href="{% url 'home:home' %}"
+               class="Home {% if request.resolver_match.url_name == 'home' %}active-menubar{% endif %}">خانه</a></li>
         <div id="marker"></div>
     </ul>
 </header>

@@ -7,8 +7,6 @@ from django.urls import reverse, reverse_lazy
 from django.views import View
 from order.models import Order
 from persiantools import digits
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
 from .forms import RegisterForm, LoginForm, CustomPasswordChangeForm, EditProfileModelForm
 from .models import User
 
@@ -115,6 +113,7 @@ class ProfileEditView(View):
         edit_form = EditProfileModelForm(request.POST, instance=current_user)
         if edit_form.is_valid():
             edit_form.save(commit=True)
+            messages.success(request, 'اطلاعات جدید با موفقیت ثبت شد.')
 
         context = {
             'form': edit_form,
@@ -127,3 +126,7 @@ class ProfileChangePasswordView(PasswordChangeView):
     success_url = reverse_lazy('accounts:login_page')
     form_class = CustomPasswordChangeForm
     template_name = 'accounts/change_password.html'
+
+    def get_success_url(self):
+        messages.success(self.request, 'رمز عبور شما با موفقیت تغییر یافت.')
+        return super().get_success_url()

@@ -15,7 +15,7 @@
 {% block content %}
     <div class="table-div">
         {% include 'inc/menubar.html' %}
-        <main class="table">
+        <main class="table persian-digit">
             <section class="table__header">
                 <a href="{% url 'table:week_data' week_number=1 %}"
                    class="{% if request.resolver_match.url_name == 'week_data' and request.resolver_match.kwargs.week_number == 1 %}url_resolver{% endif %}">هفته

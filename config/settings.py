@@ -24,7 +24,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -44,9 +44,7 @@ INSTALLED_APPS = [
     'order.apps.OrderConfig',
 
     # Third-party apps
-    'django_render_partial',
     'jalali_date',
-    'debug_toolbar',
     'widget_tweaks',
     'django_crontab',
 ]
@@ -59,9 +57,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    # extra middleware:
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -148,13 +143,13 @@ AUTH_USER_MODEL = 'accounts.User'
 MEDIA_ROOT = BASE_DIR / 'uploads'
 MEDIA_URL = '/medias/'
 
-# Email Config
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'onionarchitecturemvc@gmail.com'
-EMAIL_HOST_PASSWORD = 'djangotoplearn@pass'
-EMAIL_PORT = 587
+# # Email Config
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = '<email>@gmail.com'
+# EMAIL_HOST_PASSWORD = '<email-pass>'
+# EMAIL_PORT = 587
 
 # Jalali Date Config
 JALALI_DATE_DEFAULTS = {
@@ -180,11 +175,6 @@ JALALI_DATE_DEFAULTS = {
         }
     },
 }
-
-# django-toolbar-debug Config:
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
 
 # django crontab config
 CRONJOBS = [

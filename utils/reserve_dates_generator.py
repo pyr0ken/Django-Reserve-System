@@ -1,7 +1,6 @@
 from utils.get_current_time import get_current_time
 from datetime import timedelta
 from table.models import ReserveDateTime
-from django.conf import settings
 
 
 def daterange(start_date, end_date):

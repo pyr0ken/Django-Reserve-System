@@ -7,7 +7,8 @@
 {% endblock %}
 
 {% block headers_refrences %}
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base_form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base_menubar.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -16,7 +17,7 @@
             <img src="{% static 'image/bg-3.jpg' %}" alt="" class="bg">
             {% include 'inc/menubar.html' %}
             <form action="" method="POST" novalidate>
-                <div class="login">
+                <div class="login" style="margin-bottom: 130px !important;">
                     {% csrf_token %}
                     <h2>ورود</h2>
                     <div class="inputBox">

@@ -7,7 +7,8 @@
 {% endblock %}
 
 {% block headers_refrences %}
-    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base_form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base_menubar.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -17,7 +18,7 @@
             {% include 'inc/menubar.html' %}
             <form action="" method="POST" novalidate>
                 {% csrf_token %}
-                <div class="login">
+                <div class="login" style="margin-bottom: 10px !important;height: 82vh !important;">
                     <h2>ثبت نام</h2>
                     <div class="inputBox">
                         <label for="fullname"><i class="fa-solid fa-user"></i>&#160&#160نام و نام خانوادگی:</label>
